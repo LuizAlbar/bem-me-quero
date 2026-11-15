@@ -1,31 +1,18 @@
 {
-  "name": "figma-make-app",
+  "name": "bem-me-quero",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "E-commerce e catálogo digital Bem Me Quero Maquiagens em Next.js",
   "type": "module",
   "scripts": {
-    "dev": "NODE_OPTIONS=--no-deprecation next dev --port ${PORT:-3000} --hostname 0.0.0.0",
-    "build": "NODE_OPTIONS=--no-deprecation payload build",
-    "start": "NODE_OPTIONS=--no-deprecation next start",
-    "format": "oxfmt",
-    "generate:importmap": "NODE_OPTIONS=--no-deprecation payload generate:importmap",
-    "generate:types": "NODE_OPTIONS=--no-deprecation payload generate:types",
-    "payload": "NODE_OPTIONS=--no-deprecation payload"
+    "dev": "next dev --port ${PORT:-3000}",
+    "build": "next build",
+    "start": "next start --port ${PORT:-3000}",
+    "format": "oxfmt"
   },
   "dependencies": {
-    "@payloadcms/figma": "1.0.0-beta.1",
-    "@payloadcms/next": "4.0.0-beta.8",
-    "@payloadcms/plugin-cloud-storage": "4.0.0-beta.8",
-    "@payloadcms/plugin-mcp": "4.0.0-beta.8",
-    "@payloadcms/richtext-lexical": "4.0.0-beta.8",
-    "@payloadcms/translations": "4.0.0-beta.8",
-    "@payloadcms/ui": "4.0.0-beta.8",
-    "graphql": "^16.8.1",
-    "html-react-parser": "^5.2.10",
     "lucide-react": "^1.73.0",
-    "monaco-editor": "0.55.1",
     "next": "16.4.2",
-    "payload": "4.0.0-beta.8",
     "react": "19.3.1",
     "react-dom": "19.3.1",
     "sharp": "^0.35.4"
@@ -41,14 +28,7 @@
     "typescript": "6.0.3"
   },
   "engines": {
-    "node": ">=24.22.1",
+    "node": ">=22.0.0",
     "pnpm": "^9 || ^10 || ^11"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "sharp",
-      "esbuild",
-      "unrs-resolver"
-    ]
   }
 }

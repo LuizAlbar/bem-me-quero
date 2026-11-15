@@ -232,7 +232,7 @@ export default async function HomePage() {
           <Benefit
             icon={<Truck size={23} strokeWidth={1.5} />}
             title={settings.benefits?.shippingTitle || 'Frete grátis'}
-            text={settings.benefits?.shippingText || '[Definir condições de frete grátis]'}
+            text={settings.benefits?.shippingText || 'Frete facilitado para todo o Brasil.'}
           />
           <Benefit
             icon={<MessageCircle size={23} strokeWidth={1.5} />}
@@ -242,7 +242,7 @@ export default async function HomePage() {
           <Benefit
             icon={<CreditCard size={23} strokeWidth={1.5} />}
             title={settings.benefits?.paymentTitle || 'Pagamento flexível'}
-            text={settings.benefits?.paymentText || '[Definir formas e condições de pagamento]'}
+            text={settings.benefits?.paymentText || 'Pix ou cartão de crédito parcelado.'}
           />
         </div>
       </section>

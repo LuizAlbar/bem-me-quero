@@ -136,11 +136,7 @@
   }
 }
 
-.figma-custom-code-fragment {
-  display: contents;
-}
-
-.figma-bypass-link {
+.bypass-link {
   position: fixed;
   top: 8px;
   left: 8px;
@@ -156,6 +152,6 @@
   text-decoration: none;
 }
 
-.figma-bypass-link:focus {
+.bypass-link:focus {
   transform: translateY(0);
 }

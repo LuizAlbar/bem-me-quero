@@ -1,23 +1,29 @@
+# Dependencies
 node_modules/
+.pnpm-store/
+
+# Next.js build output
 .next/
 out/
 dist/
 build/
 .cache/
+
+# Environment files
 .env*
+!.env.example
+
+# TypeScript
 next-env.d.ts
 *.tsbuildinfo
+
+# Logs
 *-debug.log*
 logs/
 *.log
-.claude-replay.*
-.figma/runtime/
-.tmp-*
-/.figma/design-context/
 
-# Platform-managed agentplat state, not project source. In the
-# client-initiated single-repo workspace layout (make's `Path: "."` spec) the
-# repo root IS the workspace root, so these land inside this repo rather than
-# beside it.
-/.plugins/
-/.opencode-skills/
+# Misc / Editor
+.DS_Store
+*.pem
+.claude-replay.*
+.tmp-*
