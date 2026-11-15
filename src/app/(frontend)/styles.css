@@ -1,0 +1,161 @@
+@import 'tailwindcss';
+
+@theme inline {
+  --font-sans: var(--font-dm-sans);
+  --font-editorial: var(--font-cormorant);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-dm-sans), sans-serif;
+    background: #fffaf7;
+  }
+
+  a,
+  button,
+  input,
+  select {
+    transition-duration: 180ms;
+    transition-timing-function: ease;
+  }
+
+  :focus-visible {
+    outline: 2px solid #596a49;
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background: #f8e1dd;
+    color: #22251f;
+  }
+}
+
+@layer components {
+  .font-editorial {
+    font-family: var(--font-cormorant), serif;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #596a49;
+  }
+
+  .button-primary,
+  .button-secondary {
+    display: inline-flex;
+    min-height: 46px;
+    width: fit-content;
+    align-items: center;
+    justify-content: center;
+    border-radius: 11px;
+    padding: 0 20px;
+    font-size: 13px;
+    font-weight: 650;
+  }
+
+  .button-primary {
+    background: #596a49;
+    color: #fff;
+  }
+
+  .button-primary:hover {
+    background: #47583a;
+    transform: translateY(-1px);
+  }
+
+  .button-secondary {
+    border: 1px solid #596a49;
+    color: #596a49;
+  }
+
+  .button-secondary:hover {
+    background: #596a49;
+    color: #fff;
+  }
+
+  .nav-link {
+    position: relative;
+    padding: 8px 0;
+  }
+
+  .nav-link::after {
+    position: absolute;
+    right: 0;
+    bottom: 3px;
+    left: 0;
+    height: 1px;
+    content: '';
+    background: #596a49;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 180ms ease;
+  }
+
+  .nav-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .filter-chip {
+    min-height: 40px;
+    flex: none;
+    border: 1px solid #e8e3df;
+    border-radius: 999px;
+    background: white;
+    padding: 0 16px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .filter-chip:hover,
+  .filter-chip-active {
+    border-color: #596a49;
+    background: #596a49;
+    color: white;
+  }
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+.figma-custom-code-fragment {
+  display: contents;
+}
+
+.figma-bypass-link {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 2147483647;
+  transform: translateY(-150%);
+  border-radius: 6px;
+  background: #111827;
+  color: #fff;
+  padding: 8px 12px;
+  font:
+    600 14px/1.2 system-ui,
+    sans-serif;
+  text-decoration: none;
+}
+
+.figma-bypass-link:focus {
+  transform: translateY(0);
+}
