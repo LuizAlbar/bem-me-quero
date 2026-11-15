@@ -16,12 +16,28 @@ export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
   title: 'Bem Me Quero Maquiagens | Realce o que faz você ser você',
   description: 'Maquiagens e cosméticos escolhidos com carinho para realçar a sua beleza natural.',
-  icons: { icon: '/favicon.svg' },
+  icons: {
+    icon: [
+      { url: '/assets/favicon.png', type: 'image/png' },
+      { url: '/favicon.ico' },
+      { url: '/favicon.png', type: 'image/png' },
+    ],
+    shortcut: '/favicon.ico',
+    apple: '/assets/favicon.png',
+  },
   openGraph: {
     title: 'Bem Me Quero Maquiagens',
     description:
       'Maquiagens e cosméticos escolhidos com carinho para realçar a sua beleza natural.',
     type: 'website',
+    images: [
+      {
+        url: '/assets/logo.png',
+        width: 2172,
+        height: 724,
+        alt: 'Bem Me Quero Maquiagens',
+      },
+    ],
   },
 }
 

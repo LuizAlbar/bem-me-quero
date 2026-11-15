@@ -5,10 +5,7 @@ import { ArrowLeft, Check, MessageCircle } from 'lucide-react'
 import { ProductCard, formatCurrency } from '@/components/ProductCard'
 import { getProductBySlug, getProducts, getStoreSettings, type MediaValue } from '@/lib/store-data'
 
-export async function generateStaticParams() {
-  const products = await getProducts()
-  return products.map((product) => ({ slug: product.slug }))
-}
+export const dynamic = 'force-dynamic'
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
