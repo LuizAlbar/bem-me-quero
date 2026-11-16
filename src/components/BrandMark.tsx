@@ -22,7 +22,7 @@ export function BrandMark({
   const alt = typeof logo === 'object' && logo?.alt ? logo.alt : 'Bem Me Quero Maquiagens'
 
   return (
-    <span className={`relative block h-12 w-36 ${className}`}>
+    <span className={`relative block shrink-0 ${className || 'h-14 w-44 sm:h-16 sm:w-52'}`}>
       <Image
         src={resolvedUrl}
         alt={alt}
@@ -31,7 +31,7 @@ export function BrandMark({
         className={`object-contain object-left ${
           inverse && resolvedUrl !== '/assets/logo-white.png' ? 'brightness-0 invert' : ''
         }`}
-        sizes="144px"
+        sizes="(max-width: 640px) 176px, 208px"
       />
     </span>
   )

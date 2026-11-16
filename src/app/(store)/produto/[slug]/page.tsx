@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import { ArrowLeft, Check, MessageCircle } from 'lucide-react'
 import { ProductCard, formatCurrency } from '@/components/ProductCard'
 import { getProductBySlug, getProducts, getStoreSettings, type MediaValue } from '@/lib/store-data'
+import { getWhatsAppUrl } from '@/lib/contact-links'
 
 export const dynamic = 'force-dynamic'
 
@@ -27,11 +28,9 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         item.category?.id === category?.id,
     )
     .slice(0, 4)
-  const message = encodeURIComponent(
-    `${settings.contactMessage || 'Olá! Gostaria de consultar a disponibilidade de'} ${product.name}.`,
-  )
-  const whatsapp = settings.whatsapp?.replace(/\D/g, '')
-  const contactHref = whatsapp ? `https://wa.me/${whatsapp}?text=${message}` : '/#contato'
+  const message = `${settings.contactMessage || 'Olá! Gostaria de consultar a disponibilidade de'} ${product.name}.`
+  const whatsapp = getWhatsAppUrl(settings.whatsapp, message)
+  const contactHref = whatsapp || '/#contato'
 
   return (
     <main>

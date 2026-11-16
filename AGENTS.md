@@ -75,10 +75,10 @@ As skills disponibilizadas pelo usuário fazem parte do fluxo de trabalho. **O a
 ### Estrutura de Diretórios e Módulos
 
 - `src/app/`: Rotas canônicas do Next.js App Router:
-  - `src/app/layout.tsx`: Root Layout com fontes Google (DM Sans e Cormorant Garamond), Header e Footer.
-  - `src/app/page.tsx`: Página inicial (Hero, Categorias, Mais Vendidos, Campanha, Explorer, Institucional, Depoimentos e Benefícios).
-  - `src/app/produtos/page.tsx`: Catálogo completo com filtros interativos.
-  - `src/app/produto/[slug]/page.tsx`: Detalhe do produto com galeria de fotos, variantes, conversão via WhatsApp e produtos relacionados.
+  - `src/app/layout.tsx`: Root Layout com fontes Google (DM Sans e Cormorant Garamond). O layout de `src/app/(store)/` contém Header e Footer públicos.
+  - `src/app/(store)/page.tsx`: Página inicial (Hero, Categorias, Mais Vendidos, Campanha, Explorer, Institucional, Depoimentos e Benefícios).
+  - `src/app/(store)/produtos/page.tsx`: Catálogo completo com filtros interativos.
+  - `src/app/(store)/produto/[slug]/page.tsx`: Detalhe do produto com galeria de fotos, variantes, conversão via WhatsApp e produtos relacionados.
   - `src/app/not-found.tsx`: Página 404 personalizada e elegante.
   - `src/app/styles.css`: Estilos globais e tokens Tailwind v4.
 - `src/components/`: Componentes modulares da interface (`ProductCard`, `ProductExplorer`, `BannerSection`, `BrandMark`, `StoreHeader`, `StoreFooter`).
@@ -92,6 +92,10 @@ As skills disponibilizadas pelo usuário fazem parte do fluxo de trabalho. **O a
 - **TypeScript Estrito:** Proibido o uso de `any`, `@ts-ignore` ou `eslint-disable` sem autorização/justificativa.
 - **Tailwind CSS v4:** Usar classes utilitárias de Tailwind nos componentes JSX.
 - **Acessibilidade e Usabilidade:** Foco visível em elementos interativos, contraste de texto sobre fundos de cor clara, navegação funcional por teclado e suporte a leitores de tela.
+- **Mobile-first obrigatório e bloqueante:** Toda implementação de frontend deve começar pela menor tela e ser conferida em navegador real em **320, 390, 768, 1024 e 1440 px**, cobrindo mobile e desktop. Validar as rotas e os estados afetados (menus, busca, filtros, formulários e modais), navegação por teclado, alvos de toque e ausência de rolagem horizontal da página. Listas e tabelas podem ter rolagem interna intencional. Não usar `overflow-x: hidden` para mascarar erros de layout. Registrar os tamanhos e fluxos efetivamente verificados; não declarar a entrega visual concluída sem essa validação e informar explicitamente qualquer bloqueio de ambiente.
+- **Hero responsivo:** Na home, a primeira dobra ocupa `100svh`, com faixa de destaques e navegação sobre o banner. Textos editoriais sobrepostos ficam ocultos visualmente abaixo de 768 px; manter o título acessível e o CTA do catálogo. Respeitar imagens específicas para mobile e desktop e fornecer resolução suficiente para o recorte e a densidade da tela.
+- **Separação administrativa:** Cabeçalho, faixa de destaques e rodapé da loja pertencem exclusivamente ao grupo público `src/app/(store)/`. Todas as rotas `/admin/*`, inclusive login, devem ficar fora desse layout. Rotas protegidas ficam em `src/app/admin/(panel)/`; login contém apenas identificação e formulário.
+- **Sessão administrativa:** JWT HS256 e cookie `HttpOnly`, `SameSite=Lax`, `Secure` em produção, com validade de sete dias. `SESSION_SECRET` é obrigatório, deve conter pelo menos 32 bytes aleatórios e deve ser configurado em cada ambiente; nunca usar chave fixa ou credencial do Supabase como fallback. O logout remove o cookie e redireciona ao login. Validar sessão e papel administrativo também nas Server Actions.
 - **Links de WhatsApp:** Utilizar codificação correta de URL (`encodeURIComponent`) e formato internacional sem caracteres especiais para acionamento direto do app.
 
 ## 6. Fluxo de Trabalho Obrigatório por Tarefa
@@ -111,7 +115,7 @@ As skills disponibilizadas pelo usuário fazem parte do fluxo de trabalho. **O a
 ### Ao concluir
 
 1. Executar os scripts de verificação disponíveis via `pnpm` (ex: `pnpm build`, `pnpm format`).
-2. Verificar no navegador real via `agent-browser` para mudanças visuais e de interação na loja.
+2. Verificar no navegador real via `agent-browser` toda mudança visual ou de interação, inclusive administrativa, nos tamanhos e estados obrigatórios da regra mobile-first da seção 5. Guardar evidências e corrigir problemas encontrados antes de concluir.
 3. Responder em pt-BR com: **o que mudou**, **skills efetivamente utilizadas**, **comandos/testes executados**, **resultado** e **eventuais pendências**.
 
 ---

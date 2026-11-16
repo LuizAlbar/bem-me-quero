@@ -6,8 +6,13 @@
 }
 
 @layer base {
+  :root {
+    --announcement-height: 36px;
+  }
+
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 1rem;
   }
 
   body {
@@ -35,6 +40,39 @@
 }
 
 @layer components {
+  .section-spacing {
+    padding-block: 3rem;
+  }
+
+  @media (min-width: 768px) {
+    .section-spacing {
+      padding-block: 4rem;
+    }
+  }
+
+  .announcement-bar {
+    height: var(--announcement-height);
+    background: #596a49;
+    color: #fffaf7;
+  }
+
+  .icon-link {
+    display: grid;
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    place-items: center;
+    border-radius: 999px;
+  }
+
+  .icon-link:hover {
+    background: color-mix(in srgb, currentColor 10%, transparent);
+  }
+
+  .store-dialog::backdrop {
+    background: #22251f66;
+  }
+
   .font-editorial {
     font-family: var(--font-cormorant), serif;
   }

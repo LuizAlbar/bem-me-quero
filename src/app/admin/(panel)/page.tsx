@@ -37,7 +37,7 @@ export default async function AdminDashboardPage() {
             Gerencie o catálogo, categorias e estoque da Bem Me Quero.
           </p>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
           <Link href="/admin/produtos" className="button-primary gap-2 !min-h-10 !px-4 text-xs">
             <Plus size={15} /> Novo Produto
           </Link>
@@ -48,7 +48,7 @@ export default async function AdminDashboardPage() {
       </div>
 
       {/* Metrics Cards */}
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 min-[390px]:grid-cols-2 lg:grid-cols-4">
         <MetricCard
           label="Total de Produtos"
           value={totalProducts}
@@ -74,7 +74,7 @@ export default async function AdminDashboardPage() {
 
       {/* Recent Products */}
       <div className="rounded-2xl border border-[#e8e3df] bg-white p-6 shadow-sm">
-        <div className="flex items-center justify-between border-b border-[#f0ece8] pb-4">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#f0ece8] pb-4">
           <div>
             <h2 className="text-sm font-semibold text-[#22251f]">Últimos Produtos</h2>
             <p className="text-xs text-[#77766f]">Recém adicionados ou atualizados no catálogo</p>
@@ -91,8 +91,11 @@ export default async function AdminDashboardPage() {
           {recentProducts.map((p) => {
             const firstImg = p.images?.[0]?.url
             return (
-              <div key={p.id} className="flex items-center justify-between py-3.5">
-                <div className="flex items-center gap-3.5">
+              <div
+                key={p.id}
+                className="flex flex-col gap-3 py-3.5 sm:flex-row sm:items-center sm:justify-between"
+              >
+                <div className="flex min-w-0 items-center gap-3.5">
                   <div className="relative size-11 shrink-0 overflow-hidden rounded-lg bg-[#f4eee9]">
                     {firstImg ? (
                       // eslint-disable-next-line @next/next/no-img-element
@@ -103,7 +106,7 @@ export default async function AdminDashboardPage() {
                       </div>
                     )}
                   </div>
-                  <div>
+                  <div className="min-w-0 break-words">
                     <p className="text-xs font-semibold text-[#22251f]">{p.name}</p>
                     <p className="text-[11px] text-[#77766f]">
                       {p.category?.name || 'Sem categoria'} · {formatCurrency(Number(p.price))}
@@ -111,7 +114,7 @@ export default async function AdminDashboardPage() {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2 sm:justify-end">
                   {p.featured && (
                     <span className="rounded-full bg-[#f8e1dd] px-2.5 py-0.5 text-[10px] font-semibold text-[#8a3341]">
                       Destaque
@@ -159,7 +162,7 @@ function MetricCard({
         alert ? 'border-[#cb8f98]/40 bg-[#f8e1dd]/20' : 'border-[#e8e3df] bg-white'
       }`}
     >
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-2">
         <span className="text-xs font-medium text-[#77766f]">{label}</span>
         <div className="rounded-xl bg-[#fffaf7] p-2">{icon}</div>
       </div>

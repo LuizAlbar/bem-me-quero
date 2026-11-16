@@ -1,24 +1,14 @@
 import bcrypt from 'bcryptjs'
-import { SignJWT, jwtVerify } from 'jose'
 import { cookies } from 'next/headers'
+import {
+  createSessionToken,
+  verifySessionToken,
+  SESSION_COOKIE_NAME,
+  SESSION_MAX_AGE,
+  type SessionPayload,
+} from '@/lib/session-token'
 
-const SESSION_COOKIE_NAME = 'bmq_admin_session'
-const SESSION_MAX_AGE = 7 * 24 * 60 * 60 // 7 dias
-
-function getJwtSecret(): Uint8Array {
-  const secret =
-    process.env.SESSION_SECRET ||
-    process.env.SUPABASE_SERVICE_ROLE_KEY ||
-    'bem-me-quero-super-secret-key-fallback-change-in-env'
-  return new TextEncoder().encode(secret)
-}
-
-export type SessionPayload = {
-  userId: string
-  email: string
-  name: string
-  role: string
-}
+export type { SessionPayload } from '@/lib/session-token'
 
 export async function hashPassword(password: string): Promise<string> {
   return bcrypt.hash(password, 10)
@@ -34,24 +24,21 @@ export async function createSession(user: {
   name: string
   role: string
 }): Promise<string> {
-  const secret = getJwtSecret()
-  const token = await new SignJWT({
+  const token = await createSessionToken({
     userId: user.id,
     email: user.email,
     name: user.name,
     role: user.role,
   })
-    .setProtectedHeader({ alg: 'HS256' })
-    .setIssuedAt()
-    .setExpirationTime('7d')
-    .sign(secret)
 
   const cookieStore = await cookies()
+  // https://nextjs.org/docs/app/guides/authentication#setting-cookies-recommended-options
   cookieStore.set(SESSION_COOKIE_NAME, token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'lax',
     maxAge: SESSION_MAX_AGE,
+    expires: new Date(Date.now() + SESSION_MAX_AGE * 1000),
     path: '/',
   })
 
@@ -63,18 +50,7 @@ export async function verifySession(): Promise<SessionPayload | null> {
   const token = cookieStore.get(SESSION_COOKIE_NAME)?.value
   if (!token) return null
 
-  try {
-    const secret = getJwtSecret()
-    const { payload } = await jwtVerify(token, secret)
-    return {
-      userId: String(payload.userId),
-      email: String(payload.email),
-      name: String(payload.name),
-      role: String(payload.role),
-    }
-  } catch {
-    return null
-  }
+  return verifySessionToken(token)
 }
 
 export async function destroySession(): Promise<void> {

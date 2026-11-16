@@ -12,7 +12,7 @@ export default async function ProductsPage() {
   return (
     <main>
       <section className="bg-[#f8e1dd]/55">
-        <div className="mx-auto max-w-[1320px] px-5 py-16 md:px-8 md:py-20 lg:px-10 lg:py-24">
+        <div className="mx-auto max-w-[1320px] px-5 section-spacing md:px-8 lg:px-10">
           <p className="eyebrow">Catálogo</p>
           <h1 className="mt-4 max-w-3xl font-editorial text-[48px] leading-[.92] tracking-[-.04em] md:text-7xl">
             Beleza para cada versão de você
@@ -23,7 +23,7 @@ export default async function ProductsPage() {
           </p>
         </div>
       </section>
-      <section className="mx-auto max-w-[1320px] px-5 py-16 md:px-8 lg:px-10 lg:py-24">
+      <section className="mx-auto max-w-[1320px] px-5 section-spacing md:px-8 lg:px-10">
         <ProductExplorer products={products} categories={categories} />
       </section>
     </main>

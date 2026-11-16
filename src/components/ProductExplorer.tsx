@@ -50,7 +50,7 @@ export function ProductExplorer({
   return (
     <div>
       <div className="flex flex-col gap-5 border-y border-[#e8e3df] py-5 lg:flex-row lg:items-center lg:justify-between">
-        <div className="scrollbar-none flex gap-2 overflow-x-auto pb-1">
+        <div className="scrollbar-none flex min-w-0 gap-2 overflow-x-auto pb-1">
           <button
             type="button"
             onClick={() => setCategory('all')}
@@ -69,8 +69,9 @@ export function ProductExplorer({
             </button>
           ))}
         </div>
-        <div className="flex items-center gap-2">
-          <label className="flex h-11 min-w-0 flex-1 items-center gap-2 rounded-xl border border-[#e8e3df] bg-white px-3 lg:w-64">
+        <div className="flex min-w-0 flex-wrap items-center gap-2">
+          <label className="flex h-11 min-w-0 flex-1 items-center gap-2 rounded-xl border border-[#e8e3df] bg-white px-3 lg:w-52">
+            <span className="sr-only">Buscar produto</span>
             <Search size={16} />
             <input
               value={query}
@@ -88,16 +89,19 @@ export function ProductExplorer({
             type="button"
             className="grid size-11 place-items-center rounded-xl border border-[#e8e3df] lg:hidden"
             aria-label="Abrir filtros e ordenação"
+            aria-expanded={filtersOpen}
             onClick={() => setFiltersOpen((current) => !current)}
           >
             <SlidersHorizontal size={17} />
           </button>
-          <label className={`${filtersOpen ? 'flex' : 'hidden'} items-center lg:flex`}>
+          <label
+            className={`${filtersOpen ? 'flex' : 'hidden'} w-full items-center sm:w-auto lg:flex`}
+          >
             <span className="sr-only">Filtrar por disponibilidade</span>
             <select
               value={availability}
               onChange={(event) => setAvailability(event.target.value)}
-              className="h-11 rounded-xl border border-[#e8e3df] bg-white px-3 text-sm outline-none focus:border-[#596a49]"
+              className="h-11 w-full rounded-xl border border-[#e8e3df] bg-white px-3 text-sm outline-none focus:border-[#596a49]"
             >
               <option value="all">Disponibilidade</option>
               <option value="available">Disponíveis</option>
@@ -105,12 +109,14 @@ export function ProductExplorer({
               <option value="unavailable">Indisponíveis</option>
             </select>
           </label>
-          <label className={`${filtersOpen ? 'flex' : 'hidden'} items-center lg:flex`}>
+          <label
+            className={`${filtersOpen ? 'flex' : 'hidden'} w-full items-center sm:w-auto lg:flex`}
+          >
             <span className="sr-only">Ordenar produtos</span>
             <select
               value={sort}
               onChange={(event) => setSort(event.target.value)}
-              className="h-11 rounded-xl border border-[#e8e3df] bg-white px-3 text-sm outline-none focus:border-[#596a49]"
+              className="h-11 w-full rounded-xl border border-[#e8e3df] bg-white px-3 text-sm outline-none focus:border-[#596a49]"
             >
               <option value="recent">Mais recentes</option>
               <option value="low">Menor preço</option>

@@ -152,7 +152,7 @@ export function ProductsManager({
           />
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex min-w-0 flex-wrap items-center gap-2">
           <label className="text-xs font-semibold text-[#77766f]">Categoria:</label>
           <select
             value={selectedCategory}

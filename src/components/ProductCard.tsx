@@ -51,9 +51,11 @@ export function ProductCard({ product }: { product: ProductView }) {
               {category.name}
             </p>
           )}
-          <div className="mt-1.5 flex items-start justify-between gap-3">
-            <h3 className="text-[15px] font-medium leading-5">{product.name}</h3>
-            <div className="shrink-0 text-right text-sm">
+          <div className="mt-1.5 flex flex-col items-start justify-between gap-2 lg:flex-row lg:gap-3">
+            <h3 className="min-w-0 break-words text-[15px] font-medium leading-5">
+              {product.name}
+            </h3>
+            <div className="shrink-0 text-sm lg:text-right">
               {product.salePrice ? (
                 <>
                   <span className="block font-semibold text-[#596a49]">

@@ -16,7 +16,7 @@ export async function loginAction(_prevState: { error?: string } | undefined, fo
   const email = String(formData.get('email') || '')
     .trim()
     .toLowerCase()
-  const password = String(formData.get('password') || '').trim()
+  const password = String(formData.get('password') || '')
 
   if (!email || !password) {
     return { error: 'Informe o e-mail e a senha para continuar.' }
@@ -25,7 +25,7 @@ export async function loginAction(_prevState: { error?: string } | undefined, fo
   try {
     const [user] = await db.select().from(users).where(eq(users.email, email)).limit(1)
 
-    if (!user) {
+    if (!user || user.role !== 'admin') {
       return { error: 'E-mail ou senha incorretos.' }
     }
 

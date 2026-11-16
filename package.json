@@ -9,6 +9,7 @@
     "build": "next build",
     "start": "next start --port ${PORT:-3000}",
     "format": "oxfmt",
+    "test": "tsx --test src/lib/*.test.ts",
     "db:push": "drizzle-kit push",
     "db:seed": "tsx scripts/seed.ts",
     "db:clean": "tsx scripts/clean.ts"

@@ -1,31 +1,12 @@
 import { NextResponse, type NextRequest } from 'next/server'
-import { jwtVerify } from 'jose'
+import { SESSION_COOKIE_NAME, verifySessionToken } from '@/lib/session-token'
 
-const SESSION_COOKIE_NAME = 'bmq_admin_session'
-
-function getJwtSecret(): Uint8Array {
-  const secret =
-    process.env.SESSION_SECRET ||
-    process.env.SUPABASE_SERVICE_ROLE_KEY ||
-    'bem-me-quero-super-secret-key-fallback-change-in-env'
-  return new TextEncoder().encode(secret)
-}
-
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
 
   if (pathname.startsWith('/admin')) {
     const token = request.cookies.get(SESSION_COOKIE_NAME)?.value
-    let isValid = false
-
-    if (token) {
-      try {
-        await jwtVerify(token, getJwtSecret())
-        isValid = true
-      } catch {
-        isValid = false
-      }
-    }
+    const isValid = token ? Boolean(await verifySessionToken(token)) : false
 
     // Se estiver em /admin/login e já for válido, redireciona para o painel
     if (pathname === '/admin/login') {

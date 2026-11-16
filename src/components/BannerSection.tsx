@@ -15,11 +15,7 @@ export function BannerSection({
   const mobile = typeof banner.mobileImage === 'object' ? (banner.mobileImage as MediaValue) : null
 
   return (
-    <section
-      className={`mx-auto max-w-[1320px] px-5 md:px-8 lg:px-10 ${
-        variant === 'institutional' ? 'py-20 lg:py-28' : 'py-14 lg:py-20'
-      }`}
-    >
+    <section className="section-spacing mx-auto max-w-[1320px] px-5 md:px-8 lg:px-10">
       <div
         className={`grid overflow-hidden rounded-2xl ${
           variant === 'campaign'

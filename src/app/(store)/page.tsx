@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight, CreditCard, MessageCircle, Truck } from 'lucide-react'
 import { BannerSection } from '@/components/BannerSection'
+import { HeroBanner } from '@/components/HeroBanner'
 import { ProductCard } from '@/components/ProductCard'
 import { ProductExplorer } from '@/components/ProductExplorer'
 import {
@@ -25,55 +26,14 @@ export default async function HomePage() {
   const campaign = banners.find((banner) => banner.placement === 'campaign')
   const institutional = banners.find((banner) => banner.placement === 'institutional')
   const bestSellers = products.filter((product) => product.featured).slice(0, 4)
-  const heroDesktop =
-    hero && typeof hero.desktopImage === 'object' ? (hero.desktopImage as MediaValue) : null
-  const heroMobile =
-    hero && typeof hero.mobileImage === 'object' ? (hero.mobileImage as MediaValue) : null
-  const heroImageUrl = heroMobile?.url || heroDesktop?.url || '/assets/hero-banner.png'
 
   return (
     <main>
-      <section className="relative w-full bg-[#f8e1dd]/30">
-        <div className="relative mx-auto max-w-[1440px] px-4 pt-4 pb-8 sm:px-6 lg:px-8">
-          <div className="relative aspect-[4/5] sm:aspect-[16/9] w-full overflow-hidden rounded-2xl sm:rounded-3xl shadow-sm bg-[#f2d3cc]">
-            <Image
-              src={heroImageUrl}
-              alt={hero?.title || 'Bem Me Quero Maquiagens — Realce o que faz você ser você'}
-              fill
-              priority
-              unoptimized
-              className="object-cover object-right sm:object-center"
-            />
-            {/* Conteúdo integrado diretamente sobre a área suave do banner */}
-            <div className="relative z-10 flex h-full items-end sm:items-center p-6 sm:p-12 lg:p-16">
-              <div className="max-w-xl">
-                <p className="eyebrow">{hero?.eyebrow || 'Beleza para seu dia a dia'}</p>
-                <h1 className="mt-3 font-editorial text-4xl sm:text-5xl lg:text-[64px] leading-[.92] tracking-[-.045em] text-[#22251f]">
-                  {formatHeroTitle(hero?.title)}
-                </h1>
-                <p className="mt-4 max-w-md text-sm sm:text-base leading-relaxed text-[#3a3c36]">
-                  {hero?.description || 'Seus favoritos de maquiagem, escolhidos com carinho.'}
-                </p>
-                <div className="mt-8 flex flex-wrap items-center gap-5">
-                  <Link href={hero?.link || '/#produtos'} className="button-primary shadow-sm">
-                    {hero?.buttonLabel || 'Explorar produtos'}
-                  </Link>
-                  <Link
-                    href="/#conheca"
-                    className="text-sm font-semibold text-[#596a49] underline decoration-[#a4af85] underline-offset-4"
-                  >
-                    Conhecer a loja
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <HeroBanner banner={hero} />
 
       <section
         id="categorias"
-        className="mx-auto max-w-[1320px] px-5 py-20 md:px-8 lg:px-10 lg:py-28"
+        className="mx-auto max-w-[1320px] px-5 section-spacing md:px-8 lg:px-10"
       >
         <SectionHeading
           eyebrow="Comprar por categoria"
@@ -83,7 +43,7 @@ export default async function HomePage() {
           linkLabel="Ver todas as categorias"
         />
         {categories.length ? (
-          <div className="mt-10 grid grid-cols-2 gap-x-3 gap-y-8 md:gap-5 lg:grid-cols-4 lg:gap-6">
+          <div className="mt-8 grid grid-cols-2 gap-x-3 gap-y-8 md:gap-5 lg:grid-cols-4 lg:gap-6">
             {categories.slice(0, 4).map((category) => {
               const image =
                 typeof category.image === 'object' ? (category.image as MediaValue) : null
@@ -127,7 +87,7 @@ export default async function HomePage() {
       </section>
 
       <section id="mais-vendidos" className="bg-white">
-        <div className="mx-auto max-w-[1320px] px-5 py-20 md:px-8 lg:px-10 lg:py-28">
+        <div className="mx-auto max-w-[1320px] px-5 section-spacing md:px-8 lg:px-10">
           <SectionHeading
             eyebrow="Favoritos"
             title="Os queridinhos de vocês"
@@ -136,7 +96,7 @@ export default async function HomePage() {
             linkLabel="Ver todos os produtos"
           />
           {bestSellers.length ? (
-            <div className="mt-10 grid grid-cols-2 gap-x-3 gap-y-10 md:grid-cols-4 md:gap-6">
+            <div className="mt-8 grid grid-cols-2 gap-x-3 gap-y-10 md:grid-cols-4 md:gap-6">
               {bestSellers.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
@@ -151,14 +111,14 @@ export default async function HomePage() {
 
       <section
         id="produtos"
-        className="mx-auto max-w-[1320px] px-5 py-20 md:px-8 lg:px-10 lg:py-28"
+        className="mx-auto max-w-[1320px] px-5 section-spacing md:px-8 lg:px-10"
       >
         <SectionHeading
           eyebrow="Nossa curadoria"
           title="Descubra nossos produtos"
           text="Maquiagens para acompanhar seus dias com leveza, cor e personalidade."
         />
-        <div className="mt-10">
+        <div className="mt-8">
           <ProductExplorer products={products} categories={categories} compact />
         </div>
       </section>
@@ -168,13 +128,13 @@ export default async function HomePage() {
       </div>
 
       <section className="bg-[#f8e1dd]/45">
-        <div className="mx-auto max-w-[1320px] px-5 py-20 md:px-8 lg:px-10 lg:py-28">
+        <div className="mx-auto max-w-[1320px] px-5 section-spacing md:px-8 lg:px-10">
           <SectionHeading
             eyebrow="Depoimentos"
             title="O carinho de quem compra com a gente"
             text="Experiências reais, publicadas somente com autorização."
           />
-          <div className="mt-10 grid gap-4 md:grid-cols-3">
+          <div className="mt-8 grid gap-4 md:grid-cols-3">
             {(testimonials.length
               ? testimonials.slice(0, 3)
               : [
@@ -282,29 +242,8 @@ function Benefit({ icon, title, text }: { icon: React.ReactNode; title: string; 
 
 function EmptyContent({ text }: { text: string }) {
   return (
-    <div className="mt-10 rounded-2xl border border-dashed border-[#d6d0ca] px-6 py-14 text-center text-sm text-[#77766f]">
+    <div className="mt-8 rounded-2xl border border-dashed border-[#d6d0ca] px-6 py-14 text-center text-sm text-[#77766f]">
       {text}
     </div>
   )
-}
-
-function formatHeroTitle(rawTitle?: string | null) {
-  const title = (rawTitle || 'Realce o que faz você ser você').replace(/\.+$/, '').trim()
-  const target = 'ser você'
-  const lower = title.toLowerCase()
-
-  if (lower.includes(target)) {
-    const index = lower.lastIndexOf(target)
-    const firstPart = title.slice(0, index).trim()
-    const secondPart = title.slice(index).trim()
-    return (
-      <>
-        {firstPart}
-        <br />
-        {secondPart}
-      </>
-    )
-  }
-
-  return title
 }
