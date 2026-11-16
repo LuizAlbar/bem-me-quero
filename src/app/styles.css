@@ -3,6 +3,7 @@
 @theme inline {
   --font-sans: var(--font-dm-sans);
   --font-editorial: var(--font-cormorant);
+  --color-navigation: #26382b;
 }
 
 @layer base {
@@ -40,6 +41,43 @@
 }
 
 @layer components {
+  .hero-banner::before {
+    position: absolute;
+    inset: var(--announcement-height) 0 auto;
+    z-index: 0;
+    height: 190px;
+    content: '';
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      rgb(255 250 247 / 76%) 0%,
+      rgb(255 250 247 / 42%) 45%,
+      rgb(255 250 247 / 0%) 100%
+    );
+  }
+
+  @media (min-width: 768px) {
+    .hero-banner::before {
+      height: 230px;
+    }
+  }
+
+  .store-navbar {
+    color: var(--color-navigation);
+  }
+
+  .store-navbar :where(a, button) {
+    transition-property: color, opacity;
+  }
+
+  .store-navbar :where(a, button):hover {
+    opacity: 0.72;
+  }
+
+  .store-navbar .icon-link:hover {
+    background: transparent;
+  }
+
   .section-spacing {
     padding-block: 3rem;
   }
@@ -130,7 +168,7 @@
     left: 0;
     height: 1px;
     content: '';
-    background: #596a49;
+    background: currentColor;
     transform: scaleX(0);
     transform-origin: right;
     transition: transform 180ms ease;

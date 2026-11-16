@@ -58,11 +58,11 @@ export function StoreHeader({
     <>
       <header className={`${isHome ? 'absolute inset-x-0 top-0' : 'relative bg-[#fffaf7]'} z-50`}>
         <AnnouncementBar settings={settings} />
-        <div className={`border-b ${isHome ? 'border-[#596a49]/15' : 'border-[#e8e3df]'}`}>
-          <div className="mx-auto flex h-20 max-w-[1320px] items-center justify-between gap-1 px-3 sm:px-5 lg:h-24 lg:px-10">
+        <div className={`store-navbar ${isHome ? '' : 'border-b border-[#e8e3df]'}`}>
+          <div className="mx-auto flex h-20 max-w-[1320px] items-center justify-between gap-1 px-3 sm:px-5 lg:grid lg:h-24 lg:grid-cols-[1fr_auto_1fr] lg:px-10">
             <button
               type="button"
-              className="grid size-11 place-items-center rounded-full text-[#22251f] lg:hidden"
+              className="icon-link lg:hidden"
               aria-label="Abrir menu"
               aria-haspopup="dialog"
               aria-expanded={menuOpen}
@@ -70,24 +70,20 @@ export function StoreHeader({
             >
               <Menu size={21} strokeWidth={1.7} />
             </button>
-            <Link href="/" aria-label="Bem Me Quero Maquiagens — Início">
+            <Link href="/" aria-label="Bem Me Quero Maquiagens — Início" className="w-fit">
               <BrandMark logo={settings.logo} />
             </Link>
-            <nav className="hidden items-center gap-5 lg:flex" aria-label="Navegação principal">
+            <nav className="hidden items-center gap-6 lg:flex" aria-label="Navegação principal">
               {links.map(([label, href]) => (
-                <Link
-                  key={label}
-                  href={href}
-                  className="nav-link text-[13px] font-medium text-[#3f423b]"
-                >
+                <Link key={label} href={href} className="nav-link text-[13px] font-medium">
                   {label}
                 </Link>
               ))}
             </nav>
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1 lg:justify-self-end">
               <button
                 type="button"
-                className="grid size-11 place-items-center rounded-full transition-colors hover:bg-[#f8e1dd] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#596a49]"
+                className="icon-link"
                 aria-label="Buscar produtos"
                 aria-haspopup="dialog"
                 aria-expanded={searchOpen}

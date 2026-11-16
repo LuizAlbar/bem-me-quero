@@ -37,7 +37,7 @@ export function HeroBanner({ banner }: { banner?: BannerView }) {
           className="object-cover object-[78%_center] md:object-center"
         />
       </picture>
-      <div className="mx-auto flex h-full max-w-[1320px] items-end px-5 pb-8 pt-36 md:items-center md:px-8 lg:px-10">
+      <div className="relative z-10 mx-auto flex h-full max-w-[1320px] items-end px-5 pb-8 pt-36 md:items-center md:px-8 lg:px-10">
         <div className="w-full md:max-w-[46%]">
           <p className="eyebrow hidden md:block">
             {banner?.eyebrow || 'Beleza para seu dia a dia'}
