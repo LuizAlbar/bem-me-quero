@@ -29,62 +29,44 @@ export default async function HomePage() {
     hero && typeof hero.desktopImage === 'object' ? (hero.desktopImage as MediaValue) : null
   const heroMobile =
     hero && typeof hero.mobileImage === 'object' ? (hero.mobileImage as MediaValue) : null
+  const heroImageUrl = heroMobile?.url || heroDesktop?.url || '/assets/hero-banner.png'
 
   return (
     <main>
-      <section className="relative min-h-[70vh] overflow-hidden bg-[#f8e1dd] lg:min-h-[calc(100vh-78px)]">
-        <div className="grid min-h-[70vh] lg:min-h-[calc(100vh-78px)] lg:grid-cols-[.82fr_1.18fr]">
-          <div className="relative z-10 flex items-end px-5 pb-12 pt-14 md:px-10 lg:items-center lg:px-[max(48px,calc((100vw-1320px)/2+40px))] lg:py-20">
-            <div className="max-w-xl">
-              <p className="eyebrow">{hero?.eyebrow || 'Beleza para seu dia a dia'}</p>
-              <h1 className="mt-5 font-editorial text-[47px] leading-[.91] tracking-[-.045em] sm:text-6xl lg:text-[76px]">
-                {hero?.title || 'Realce o que faz você ser você.'}
-              </h1>
-              <p className="mt-6 max-w-md text-[15px] leading-7 text-[#4f514b] md:text-base">
-                {hero?.description || 'Seus favoritos de maquiagem, escolhidos com carinho.'}
-              </p>
-              <div className="mt-8 flex flex-wrap items-center gap-5">
-                <Link href={hero?.link || '/#produtos'} className="button-primary">
-                  {hero?.buttonLabel || 'Explorar produtos'}
-                </Link>
-                <Link
-                  href="/#conheca"
-                  className="text-sm font-semibold text-[#596a49] underline decoration-[#a4af85] underline-offset-4"
-                >
-                  Conhecer a loja
-                </Link>
+      <section className="relative w-full bg-[#f8e1dd]/30">
+        <div className="relative mx-auto max-w-[1440px] px-4 pt-4 pb-8 sm:px-6 lg:px-8">
+          <div className="relative aspect-[4/5] sm:aspect-[16/9] w-full overflow-hidden rounded-2xl sm:rounded-3xl shadow-sm bg-[#f2d3cc]">
+            <Image
+              src={heroImageUrl}
+              alt={hero?.title || 'Bem Me Quero Maquiagens — Realce o que faz você ser você'}
+              fill
+              priority
+              unoptimized
+              className="object-cover object-right sm:object-center"
+            />
+            {/* Conteúdo integrado diretamente sobre a área suave do banner */}
+            <div className="relative z-10 flex h-full items-end sm:items-center p-6 sm:p-12 lg:p-16">
+              <div className="max-w-xl">
+                <p className="eyebrow">{hero?.eyebrow || 'Beleza para seu dia a dia'}</p>
+                <h1 className="mt-3 font-editorial text-4xl sm:text-5xl lg:text-[64px] leading-[.92] tracking-[-.045em] text-[#22251f]">
+                  {formatHeroTitle(hero?.title)}
+                </h1>
+                <p className="mt-4 max-w-md text-sm sm:text-base leading-relaxed text-[#3a3c36]">
+                  {hero?.description || 'Seus favoritos de maquiagem, escolhidos com carinho.'}
+                </p>
+                <div className="mt-8 flex flex-wrap items-center gap-5">
+                  <Link href={hero?.link || '/#produtos'} className="button-primary shadow-sm">
+                    {hero?.buttonLabel || 'Explorar produtos'}
+                  </Link>
+                  <Link
+                    href="/#conheca"
+                    className="text-sm font-semibold text-[#596a49] underline decoration-[#a4af85] underline-offset-4"
+                  >
+                    Conhecer a loja
+                  </Link>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="relative order-first min-h-[48vh] lg:order-none lg:min-h-0">
-            {heroMobile?.url || heroDesktop?.url ? (
-              <>
-                {heroMobile?.url && (
-                  <Image
-                    src={heroMobile.url}
-                    alt={heroMobile.alt || hero?.title || 'Campanha Bem Me Quero'}
-                    fill
-                    priority
-                    className="object-cover object-center lg:hidden"
-                    sizes="100vw"
-                  />
-                )}
-                {heroDesktop?.url && (
-                  <Image
-                    src={heroDesktop.url}
-                    alt={heroDesktop.alt || hero?.title || 'Campanha Bem Me Quero'}
-                    fill
-                    priority
-                    className={`object-cover ${heroMobile?.url ? 'hidden lg:block' : ''}`}
-                    sizes="(max-width: 1024px) 100vw, 60vw"
-                  />
-                )}
-              </>
-            ) : (
-              <div className="grid h-full place-items-center bg-[#ead0cb] text-sm text-[#77766f]">
-                Imagem editorial da campanha
-              </div>
-            )}
           </div>
         </div>
       </section>
@@ -304,4 +286,25 @@ function EmptyContent({ text }: { text: string }) {
       {text}
     </div>
   )
+}
+
+function formatHeroTitle(rawTitle?: string | null) {
+  const title = (rawTitle || 'Realce o que faz você ser você').replace(/\.+$/, '').trim()
+  const target = 'ser você'
+  const lower = title.toLowerCase()
+
+  if (lower.includes(target)) {
+    const index = lower.lastIndexOf(target)
+    const firstPart = title.slice(0, index).trim()
+    const secondPart = title.slice(index).trim()
+    return (
+      <>
+        {firstPart}
+        <br />
+        {secondPart}
+      </>
+    )
+  }
+
+  return title
 }

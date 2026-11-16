@@ -87,6 +87,7 @@ As skills disponibilizadas pelo usuário fazem parte do fluxo de trabalho. **O a
 
 ## 5. Padrões de Interface e Código
 
+- **Padronização e Reutilização Global (Mandatório):** Se uma feature — seja de função/lógica (helpers, formatação, validação, hooks) ou de estilização UI/UX (botões, cards, badges, modais, formulários, tipografia) — for implementada ou alterada e for utilizada mais de uma vez (irá aparecer mais de uma vez no site), ela **DEVE** ser criada de forma global e reutilizável (em `src/components/`, `src/lib/` ou tokens em `src/app/styles.css`). É proibido duplicar lógica ou aplicar estilos pontuais/isolados que causem fragmentação. Toda alteração em elementos recorrentes deve ser centralizada para manter a aplicação 100% padronizada e consistente.
 - **Direto e objetivo:** Seguir à risca o `GEMINI.md`: interface limpa, sem textos óbvios, prolixos ou autoexplicativos. Botões claros, títulos expressivos e descrições úteis de produtos.
 - **TypeScript Estrito:** Proibido o uso de `any`, `@ts-ignore` ou `eslint-disable` sem autorização/justificativa.
 - **Tailwind CSS v4:** Usar classes utilitárias de Tailwind nos componentes JSX.

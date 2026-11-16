@@ -27,3 +27,5 @@ logs/
 *.pem
 .claude-replay.*
 .tmp-*
+
+temp

@@ -306,14 +306,12 @@ async function seed() {
       {
         placement: 'hero',
         eyebrow: 'Beleza para seu dia a dia',
-        title: 'Realce o que faz você ser você.',
+        title: 'Realce o que faz você ser você',
         description: 'Seus favoritos de maquiagem, escolhidos com carinho.',
         buttonLabel: 'Explorar produtos',
         link: '/#produtos',
-        desktopImageUrl:
-          'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=1600&q=85',
-        mobileImageUrl:
-          'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80',
+        desktopImageUrl: '/assets/hero-banner.png',
+        mobileImageUrl: '/assets/hero-banner.png',
         order: 1,
       },
       {
