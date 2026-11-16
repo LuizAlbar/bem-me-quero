@@ -37,7 +37,7 @@ export function LoginForm() {
                 E-mail
               </label>
               <div className="relative mt-2">
-                <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-[#77766f]">
+                <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-muted">
                   <Mail size={16} />
                 </span>
                 <input
@@ -47,7 +47,7 @@ export function LoginForm() {
                   autoComplete="email"
                   required
                   placeholder="larissa@bemmequero.com.br"
-                  className="w-full rounded-xl border border-[#e8e3df] bg-[#fffaf7]/60 py-2.5 pl-10 pr-3.5 text-base text-[#22251f] placeholder:text-[#a09e97] focus:border-[#596a49] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#596a49]"
+                  className="w-full rounded-xl border border-[#e8e3df] bg-[#fffaf7]/60 py-2.5 pl-10 pr-3.5 text-base text-[#22251f] placeholder:text-muted focus:border-[#596a49] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#596a49]"
                 />
               </div>
             </div>
@@ -57,7 +57,7 @@ export function LoginForm() {
                 Senha
               </label>
               <div className="relative mt-2">
-                <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-[#77766f]">
+                <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-muted">
                   <Lock size={16} />
                 </span>
                 <input
@@ -67,7 +67,7 @@ export function LoginForm() {
                   autoComplete="current-password"
                   required
                   placeholder="••••••••"
-                  className="w-full rounded-xl border border-[#e8e3df] bg-[#fffaf7]/60 py-2.5 pl-10 pr-12 text-base text-[#22251f] placeholder:text-[#a09e97] focus:border-[#596a49] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#596a49]"
+                  className="w-full rounded-xl border border-[#e8e3df] bg-[#fffaf7]/60 py-2.5 pl-10 pr-12 text-base text-[#22251f] placeholder:text-muted focus:border-[#596a49] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#596a49]"
                 />
                 <button
                   type="button"

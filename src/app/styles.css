@@ -4,6 +4,13 @@
   --font-sans: var(--font-dm-sans);
   --font-editorial: var(--font-cormorant);
   --color-navigation: #26382b;
+  --color-ink: #26382b;
+  --color-muted: #62665d;
+  --color-brand: #596a49;
+  --color-surface: #fffaf7;
+  --color-blush: #f8e1dd;
+  --color-border: #e8e3df;
+  --color-danger: #8a3341;
 }
 
 @layer base {
@@ -19,6 +26,21 @@
   body {
     font-family: var(--font-dm-sans), sans-serif;
     background: #fffaf7;
+  }
+
+  input,
+  textarea,
+  select {
+    accent-color: var(--color-brand);
+    caret-color: var(--color-ink);
+  }
+
+  button,
+  a,
+  input,
+  textarea,
+  select {
+    -webkit-tap-highlight-color: transparent;
   }
 
   a,
@@ -41,6 +63,59 @@
 }
 
 @layer components {
+  .skeleton {
+    border-radius: 12px;
+    background: var(--color-border);
+  }
+
+  .section-title {
+    font-family: var(--font-cormorant), serif;
+    font-size: clamp(2rem, 3.8vw, 3.5rem);
+    line-height: 1.08;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+
+  .page-title {
+    font-family: var(--font-cormorant), serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 1.04;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+
+  .form-control {
+    width: 100%;
+    min-width: 0;
+    min-height: 44px;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    background: var(--color-surface);
+    padding: 10px 14px;
+    color: var(--color-ink);
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .form-control::placeholder {
+    color: var(--color-muted);
+  }
+  .form-control:focus {
+    border-color: var(--color-brand);
+    background: white;
+  }
+  .form-control:disabled {
+    opacity: 0.6;
+    cursor: wait;
+  }
+
+  .admin-dialog::backdrop {
+    background: rgb(38 56 43 / 40%);
+  }
+  .admin-dialog {
+    box-shadow: 0 12px 36px rgb(38 56 43 / 14%);
+  }
+
   .hero-banner::before {
     position: absolute;
     inset: var(--announcement-height) 0 auto;
@@ -71,7 +146,7 @@
   }
 
   .store-navbar :where(a, button):hover {
-    opacity: 0.72;
+    opacity: 0.9;
   }
 
   .store-navbar .icon-link:hover {
@@ -146,6 +221,18 @@
     transform: translateY(-1px);
   }
 
+  .button-primary:disabled,
+  .button-secondary:disabled {
+    opacity: 0.6;
+    cursor: wait;
+    transform: none;
+  }
+
+  .button-primary:active:not(:disabled),
+  .button-secondary:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+
   .button-secondary {
     border: 1px solid #596a49;
     color: #596a49;
@@ -157,6 +244,9 @@
   }
 
   .nav-link {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
     position: relative;
     padding: 8px 0;
   }
@@ -180,7 +270,7 @@
   }
 
   .filter-chip {
-    min-height: 40px;
+    min-height: 44px;
     flex: none;
     border: 1px solid #e8e3df;
     border-radius: 999px;
@@ -203,12 +293,17 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  html {
     scroll-behavior: auto !important;
-    transition-duration: 0.01ms !important;
-    animation-duration: 0.01ms !important;
+  }
+
+  .button-primary:hover,
+  .button-primary:active:not(:disabled),
+  .button-secondary:active:not(:disabled) {
+    transform: none;
+  }
+  .nav-link::after {
+    transition: none;
   }
 }
 

@@ -53,9 +53,7 @@ export function BannerSection({
         </div>
         <div className="flex flex-col justify-center px-6 py-12 md:px-12 lg:px-16">
           {banner.eyebrow && <p className="eyebrow">{banner.eyebrow}</p>}
-          <h2 className="mt-4 max-w-lg font-editorial text-[38px] leading-[.98] tracking-[-.035em] md:text-5xl lg:text-[58px]">
-            {banner.title}
-          </h2>
+          <h2 className="section-title mt-4 max-w-lg">{banner.title}</h2>
           {banner.description && (
             <p className="mt-6 max-w-md text-[15px] leading-7 text-[#54564f]">
               {banner.description}

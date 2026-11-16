@@ -8,6 +8,7 @@ import { BrandMark } from '@/components/BrandMark'
 import { AnnouncementBar } from '@/components/AnnouncementBar'
 import { SocialLinks } from '@/components/SocialLinks'
 import { formatCurrency } from '@/components/ProductCard'
+import { getProductPrice, normalizeSearch } from '@/lib/catalog'
 import type { ProductView, SettingsView } from '@/lib/store-data'
 
 export function StoreHeader({
@@ -39,18 +40,16 @@ export function StoreHeader({
   }, [menuOpen, searchOpen])
 
   const results = useMemo(() => {
-    const normalized = query.trim().toLocaleLowerCase('pt-BR')
+    const normalized = normalizeSearch(query)
     if (!normalized) return []
-    return products.filter((product) =>
-      product.name.toLocaleLowerCase('pt-BR').includes(normalized),
-    )
+    return products.filter((product) => normalizeSearch(product.name).includes(normalized))
   }, [products, query])
 
   const links = [
     ['Início', '/'],
     ['Produtos', '/produtos'],
     ['Categorias', '/#categorias'],
-    ['Mais vendidos', '/#mais-vendidos'],
+    ['Destaques', '/#mais-vendidos'],
     ['Contato', '/#contato'],
   ]
 
@@ -122,7 +121,7 @@ export function StoreHeader({
           </button>
         </div>
         <nav className="flex flex-col py-8" aria-label="Navegação mobile">
-          {links.map(([label, href], index) => (
+          {links.map(([label, href]) => (
             <Link
               key={label}
               href={href}
@@ -130,7 +129,6 @@ export function StoreHeader({
               onClick={() => setMenuOpen(false)}
             >
               {label}
-              <span className="font-sans text-xs text-[#77766f]">0{index + 1}</span>
             </Link>
           ))}
         </nav>
@@ -145,7 +143,7 @@ export function StoreHeader({
       >
         <div className="mx-auto max-w-4xl px-5 py-8 md:py-16">
           <div className="flex items-center justify-between">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#77766f]">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
               Buscar na loja
             </p>
             <button
@@ -166,14 +164,14 @@ export function StoreHeader({
               autoFocus
               value={query}
               onChange={(event) => setQuery(event.target.value)}
-              className="h-20 min-w-0 flex-1 bg-transparent px-5 font-editorial text-3xl outline-none placeholder:text-[#aaa69f] md:text-5xl"
+              className="h-20 min-w-0 flex-1 bg-transparent px-5 font-editorial text-3xl outline-none placeholder:text-muted md:text-5xl"
               placeholder="O que você procura?"
               aria-label="Digite o nome do produto"
             />
             {query && (
               <button
                 type="button"
-                className="text-sm underline underline-offset-4"
+                className="min-h-11 px-2 text-sm underline underline-offset-4"
                 onClick={() => setQuery('')}
               >
                 Limpar
@@ -182,7 +180,7 @@ export function StoreHeader({
           </div>
           <div className="mt-8">
             {query && results.length === 0 && (
-              <p className="rounded-xl bg-white p-8 text-[#77766f]">
+              <p role="status" className="rounded-xl bg-white p-8 text-muted">
                 Nenhum produto encontrado. Tente outro termo.
               </p>
             )}
@@ -195,8 +193,8 @@ export function StoreHeader({
                   onClick={() => setSearchOpen(false)}
                 >
                   <span>{product.name}</span>
-                  <span className="text-sm text-[#77766f]">
-                    {formatCurrency(product.salePrice || product.price)}
+                  <span className="text-sm text-muted">
+                    {formatCurrency(getProductPrice(product))}
                   </span>
                 </Link>
               ))}

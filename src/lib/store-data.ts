@@ -1,3 +1,4 @@
+import { cache } from 'react'
 import { asc, desc, eq } from 'drizzle-orm'
 import { db } from '@/db'
 import { banners, categories, products, storeSettings, testimonials } from '@/db/schema'
@@ -72,84 +73,6 @@ export type SettingsView = {
   usefulLinks?: Array<{ id?: string | null; label: string; url: string }> | null
 }
 
-export const FALLBACK_CATEGORIES: CategoryView[] = [
-  {
-    id: 'cat-labios',
-    name: 'Lábios',
-    slug: 'labios',
-    description: 'Batons cremosos, mates, gloss labial e hidratantes com cores apaixonantes.',
-    image: {
-      id: 'img-cat-labios',
-      url: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=800&q=80',
-      alt: 'Categoria de Lábios - Batons e Gloss',
-      width: 800,
-      height: 1000,
-    },
-  },
-  {
-    id: 'cat-olhos',
-    name: 'Olhos',
-    slug: 'olhos',
-    description: 'Máscaras de cílios, delineadores, sombras e lápis para um olhar marcante.',
-    image: {
-      id: 'img-cat-olhos',
-      url: 'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=800&q=80',
-      alt: 'Categoria de Olhos - Máscaras e Sombras',
-      width: 800,
-      height: 1000,
-    },
-  },
-  {
-    id: 'cat-pele',
-    name: 'Pele',
-    slug: 'pele',
-    description: 'Bases, corretivos, blushes e iluminadores para um acabamento leve e radiante.',
-    image: {
-      id: 'img-cat-pele',
-      url: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80',
-      alt: 'Categoria de Pele - Bases e Blushes',
-      width: 800,
-      height: 1000,
-    },
-  },
-  {
-    id: 'cat-skincare',
-    name: 'Skincare',
-    slug: 'skincare',
-    description: 'Séruns, brumas hidratantes e óleos faciais para preparar e cuidar da sua pele.',
-    image: {
-      id: 'img-cat-skincare',
-      url: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=800&q=80',
-      alt: 'Categoria de Skincare - Séruns e Brumas',
-      width: 800,
-      height: 1000,
-    },
-  },
-]
-
-export const FALLBACK_PRODUCTS: ProductView[] = [
-  {
-    id: 'prod-gloss-labial',
-    name: 'Gloss Labial Hidratante Brilho Espelhado',
-    slug: 'gloss-labial-hidratante-brilho-espelhado',
-    description:
-      'Fórmula enriquecida com ácido hialurônico e óleo de jojoba. Proporciona brilho espelhado intenso sem sensação pegajosa, deixando os lábios macios e volumosos.',
-    price: 42.9,
-    salePrice: 38.9,
-    category: FALLBACK_CATEGORIES[0],
-    images: [
-      {
-        id: 'img-gloss-1',
-        url: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=800&q=80',
-        alt: 'Gloss Labial Hidratante',
-      },
-    ],
-    availability: 'available',
-    featured: true,
-    badge: 'best-seller',
-  },
-]
-
 export const FALLBACK_SETTINGS: SettingsView = {
   storeName: 'Bem Me Quero Maquiagens',
   logo: {
@@ -159,28 +82,17 @@ export const FALLBACK_SETTINGS: SettingsView = {
     width: 2172,
     height: 724,
   },
-  instagram: 'https://instagram.com/bemmequero.make',
-  whatsapp: '5511999999999',
   shortText:
     'Produtos de maquiagem e cuidados escolhidos com carinho para realçar o que faz você ser você.',
   contactMessage: 'Olá! Vim pelo site da Bem Me Quero e gostaria de consultar a disponibilidade de',
-  benefits: {
-    shippingTitle: 'Frete facilitado',
-    shippingText: 'Entrega rápida e segura para todo o Brasil.',
-    supportTitle: 'Atendimento com carinho',
-    supportText: 'Tire suas dúvidas e faça seu pedido direto pelo WhatsApp.',
-    paymentTitle: 'Pagamento flexível',
-    paymentText: 'Pague via Pix ou parcele suas compras no cartão de crédito.',
-  },
   usefulLinks: [
     { id: 'link-1', label: 'Início', url: '/' },
     { id: 'link-2', label: 'Catálogo de Produtos', url: '/produtos' },
     { id: 'link-3', label: 'Categorias', url: '/#categorias' },
-    { id: 'link-4', label: 'Fale Conosco', url: 'https://wa.me/5511999999999' },
   ],
 }
 
-export async function getCategories(): Promise<CategoryView[]> {
+export const getCategories = cache(async (): Promise<CategoryView[]> => {
   try {
     const rows = await db
       .select()
@@ -188,7 +100,7 @@ export async function getCategories(): Promise<CategoryView[]> {
       .where(eq(categories.visible, true))
       .orderBy(asc(categories.order))
 
-    if (!rows.length) return FALLBACK_CATEGORIES
+    if (!rows.length) return []
 
     return rows.map((cat) => ({
       id: cat.id,
@@ -204,19 +116,19 @@ export async function getCategories(): Promise<CategoryView[]> {
         : null,
     }))
   } catch (error) {
-    console.warn('Erro ao carregar categorias do banco, usando fallback:', error)
-    return FALLBACK_CATEGORIES
+    console.warn('Erro ao carregar categorias do banco:', error)
+    return []
   }
-}
+})
 
-export async function getProducts(): Promise<ProductView[]> {
+export const getProducts = cache(async (): Promise<ProductView[]> => {
   try {
     const rows = await db.query.products.findMany({
       with: { category: true },
       orderBy: [desc(products.createdAt)],
     })
 
-    if (!rows.length) return FALLBACK_PRODUCTS
+    if (!rows.length) return []
 
     return rows.map((prod) => ({
       id: prod.id,
@@ -245,10 +157,10 @@ export async function getProducts(): Promise<ProductView[]> {
       usage: prod.usage,
     }))
   } catch (error) {
-    console.warn('Erro ao carregar produtos do banco, usando fallback:', error)
-    return FALLBACK_PRODUCTS
+    console.warn('Erro ao carregar produtos do banco:', error)
+    return []
   }
-}
+})
 
 export async function getProductBySlug(slug: string): Promise<ProductView | null> {
   try {
@@ -334,7 +246,7 @@ export async function getTestimonials(): Promise<TestimonialView[]> {
   }
 }
 
-export async function getStoreSettings(): Promise<SettingsView> {
+export const getStoreSettings = cache(async (): Promise<SettingsView> => {
   try {
     const [row] = await db.select().from(storeSettings).limit(1)
     if (!row) return FALLBACK_SETTINGS
@@ -353,4 +265,4 @@ export async function getStoreSettings(): Promise<SettingsView> {
     console.warn('Erro ao carregar configurações da loja do banco:', error)
     return FALLBACK_SETTINGS
   }
-}
+})

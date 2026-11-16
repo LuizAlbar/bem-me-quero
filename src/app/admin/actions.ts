@@ -7,6 +7,7 @@ import { db } from '@/db'
 import { categories, products, users } from '@/db/schema'
 import { createSession, destroySession, verifyPassword, verifySession } from '@/lib/auth'
 import { compressAndUploadImage } from '@/lib/supabase-storage'
+import { updatePrimaryImage } from '@/lib/product-images'
 
 /* =========================================================
    AUTH ACTIONS
@@ -282,10 +283,8 @@ export async function updateProductAction(id: string, formData: FormData) {
       where: eq(products.id, id),
     })
 
-    let images = existing?.images || []
-    if (imageUrl) {
-      images = [{ id: `img-${Date.now()}`, url: imageUrl, alt: name }]
-    }
+    if (!existing) return { error: 'Produto não encontrado. Atualize a página e tente novamente.' }
+    const images = updatePrimaryImage(existing.images, imageUrl, name)
 
     await db
       .update(products)

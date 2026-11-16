@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { desc, eq } from 'drizzle-orm'
 import { AlertTriangle, ArrowRight, Layers, Package, Plus, Sparkles } from 'lucide-react'
 import { db } from '@/db'
@@ -33,15 +34,15 @@ export default async function AdminDashboardPage() {
           <h1 className="font-editorial text-3xl text-[#22251f] sm:text-4xl">
             Visão Geral da Loja
           </h1>
-          <p className="mt-1 text-xs text-[#77766f]">
+          <p className="mt-1 text-xs text-muted">
             Gerencie o catálogo, categorias e estoque da Bem Me Quero.
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-3">
-          <Link href="/admin/produtos" className="button-primary gap-2 !min-h-10 !px-4 text-xs">
+          <Link href="/admin/produtos" className="button-primary gap-2 !px-4 text-xs">
             <Plus size={15} /> Novo Produto
           </Link>
-          <Link href="/admin/categorias" className="button-secondary gap-2 !min-h-10 !px-4 text-xs">
+          <Link href="/admin/categorias" className="button-secondary gap-2 !px-4 text-xs">
             <Plus size={15} /> Nova Categoria
           </Link>
         </div>
@@ -77,7 +78,7 @@ export default async function AdminDashboardPage() {
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#f0ece8] pb-4">
           <div>
             <h2 className="text-sm font-semibold text-[#22251f]">Últimos Produtos</h2>
-            <p className="text-xs text-[#77766f]">Recém adicionados ou atualizados no catálogo</p>
+            <p className="text-xs text-muted">Recém adicionados ou atualizados no catálogo</p>
           </div>
           <Link
             href="/admin/produtos"
@@ -98,17 +99,16 @@ export default async function AdminDashboardPage() {
                 <div className="flex min-w-0 items-center gap-3.5">
                   <div className="relative size-11 shrink-0 overflow-hidden rounded-lg bg-[#f4eee9]">
                     {firstImg ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img src={firstImg} alt={p.name} className="size-full object-cover" />
+                      <Image src={firstImg} alt="" fill sizes="44px" className="object-cover" />
                     ) : (
-                      <div className="grid size-full place-items-center text-[10px] text-[#77766f]">
+                      <div className="grid size-full place-items-center text-[10px] text-muted">
                         Sem foto
                       </div>
                     )}
                   </div>
                   <div className="min-w-0 break-words">
                     <p className="text-xs font-semibold text-[#22251f]">{p.name}</p>
-                    <p className="text-[11px] text-[#77766f]">
+                    <p className="text-[11px] text-muted">
                       {p.category?.name || 'Sem categoria'} · {formatCurrency(Number(p.price))}
                     </p>
                   </div>
@@ -163,7 +163,7 @@ function MetricCard({
       }`}
     >
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <span className="text-xs font-medium text-[#77766f]">{label}</span>
+        <span className="text-xs font-medium text-muted">{label}</span>
         <div className="rounded-xl bg-[#fffaf7] p-2">{icon}</div>
       </div>
       <p className="mt-3 font-editorial text-3xl font-semibold text-[#22251f]">{value}</p>

@@ -22,7 +22,7 @@ export function CategoryCard({ category }: { category: CategoryView }) {
             sizes="(min-width: 1320px) 292px, (min-width: 1024px) calc((100vw - 152px) / 4), (min-width: 660px) 300px, calc((100vw - 60px) / 2)"
           />
         ) : (
-          <div className="grid h-full place-items-center px-4 text-xs text-[#77766f]">
+          <div className="grid h-full place-items-center px-4 text-xs text-muted">
             Imagem da categoria
           </div>
         )}

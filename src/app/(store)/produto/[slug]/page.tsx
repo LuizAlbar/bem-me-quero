@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import { ArrowLeft, Check, MessageCircle } from 'lucide-react'
 import { ProductCard, formatCurrency } from '@/components/ProductCard'
 import { getProductBySlug, getProducts, getStoreSettings, type MediaValue } from '@/lib/store-data'
+import { getProductPrice } from '@/lib/catalog'
 import { getWhatsAppUrl } from '@/lib/contact-links'
 
 export const dynamic = 'force-dynamic'
@@ -60,29 +61,31 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                       fill
                       priority={index === 0}
                       className="object-cover"
-                      sizes={index === 0 ? '(max-width: 1024px) 100vw, 55vw' : '28vw'}
+                      sizes={
+                        index === 0
+                          ? '(max-width: 1024px) 100vw, 55vw'
+                          : '(max-width: 1024px) 50vw, 28vw'
+                      }
                     />
                   )}
                 </div>
               ))}
             </div>
           ) : (
-            <div className="grid aspect-[4/5] place-items-center rounded-2xl bg-[#f4eee9] text-sm text-[#77766f]">
+            <div className="grid aspect-[4/5] place-items-center rounded-2xl bg-[#f4eee9] text-sm text-muted">
               Imagens do produto
             </div>
           )}
         </div>
         <div className="lg:sticky lg:top-28 lg:h-fit">
           {category && <p className="eyebrow">{category.name}</p>}
-          <h1 className="mt-4 font-editorial text-[48px] leading-[.94] tracking-[-.04em] md:text-6xl">
-            {product.name}
-          </h1>
+          <h1 className="page-title mt-4">{product.name}</h1>
           <div className="mt-6 flex items-baseline gap-3">
             <span className="text-xl font-semibold text-[#596a49]">
-              {formatCurrency(product.salePrice || product.price)}
+              {formatCurrency(getProductPrice(product))}
             </span>
-            {product.salePrice && (
-              <span className="text-sm text-[#77766f] line-through">
+            {product.salePrice != null && product.salePrice < product.price && (
+              <span className="text-sm text-muted line-through">
                 {formatCurrency(product.price)}
               </span>
             )}
@@ -95,7 +98,9 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             />
             {product.availability === 'unavailable'
               ? 'Indisponível no momento'
-              : 'Disponível para consulta'}
+              : product.availability === 'low'
+                ? 'Estoque baixo — consulte a disponibilidade'
+                : 'Disponível para consulta'}
           </div>
           <p className="mt-7 text-[15px] leading-7 text-[#5f615b]">{product.description}</p>
 
@@ -131,7 +136,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             {whatsapp ? 'Pedir no WhatsApp' : 'Consultar disponibilidade'}
           </a>
           {!whatsapp && (
-            <p className="mt-3 text-center text-xs text-[#77766f]">
+            <p className="mt-3 text-center text-xs text-muted">
               O WhatsApp será exibido quando cadastrado nas configurações da loja.
             </p>
           )}
@@ -149,11 +154,9 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
       {related.length > 0 && (
         <section className="bg-white">
-          <div className="mx-auto max-w-[1320px] px-5 py-20 md:px-8 lg:px-10 lg:py-28">
+          <div className="mx-auto max-w-[1320px] px-5 section-spacing md:px-8 lg:px-10">
             <p className="eyebrow">Você também pode gostar</p>
-            <h2 className="mt-3 font-editorial text-4xl tracking-[-.035em] md:text-5xl">
-              Complete sua seleção
-            </h2>
+            <h2 className="section-title mt-3">Complete sua seleção</h2>
             <div className="mt-10 grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-6">
               {related.map((item) => (
                 <ProductCard key={item.id} product={item} />
@@ -170,7 +173,7 @@ function Detail({ title, text }: { title: string; text: string }) {
   return (
     <div className="py-5">
       <h2 className="text-sm font-semibold">{title}</h2>
-      <p className="mt-2 text-sm leading-6 text-[#77766f]">{text}</p>
+      <p className="mt-2 text-sm leading-6 text-muted">{text}</p>
     </div>
   )
 }

@@ -7,9 +7,7 @@ export default function NotFound() {
       <h1 className="mt-4 font-editorial text-5xl tracking-[-.04em]">
         Essa beleza ainda não está por aqui
       </h1>
-      <p className="mt-4 text-[#77766f]">
-        O conteúdo pode ter sido movido ou ainda não foi publicado.
-      </p>
+      <p className="mt-4 text-muted">O conteúdo pode ter sido movido ou ainda não foi publicado.</p>
       <Link className="button-primary mt-7" href="/">
         Voltar ao início
       </Link>

@@ -39,12 +39,12 @@ export function HeroBanner({ banner }: { banner?: BannerView }) {
       </picture>
       <div className="relative z-10 mx-auto flex h-full max-w-[1320px] items-end px-5 pb-8 pt-36 md:items-center md:px-8 lg:px-10">
         <div className="w-full md:max-w-[46%]">
-          <p className="eyebrow hidden md:block">
+          <p className="eyebrow hidden text-ink md:block">
             {banner?.eyebrow || 'Beleza para seu dia a dia'}
           </p>
           <h1
             id="hero-title"
-            className="sr-only md:not-sr-only md:mt-4 md:font-editorial md:text-5xl md:leading-[.96] md:tracking-[-.045em] lg:text-[68px]"
+            className="sr-only md:not-sr-only md:mt-4 md:font-editorial md:text-5xl md:leading-[.96] md:tracking-[-.035em] lg:text-[68px]"
           >
             {title}
           </h1>
