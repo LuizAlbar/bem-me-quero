@@ -1,7 +1,7 @@
-import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowRight, CreditCard, MessageCircle, Truck } from 'lucide-react'
+import { CreditCard, MessageCircle, Truck } from 'lucide-react'
 import { BannerSection } from '@/components/BannerSection'
+import { CategoryCard } from '@/components/CategoryCard'
 import { HeroBanner } from '@/components/HeroBanner'
 import { ProductCard } from '@/components/ProductCard'
 import { ProductExplorer } from '@/components/ProductExplorer'
@@ -11,7 +11,6 @@ import {
   getProducts,
   getStoreSettings,
   getTestimonials,
-  type MediaValue,
 } from '@/lib/store-data'
 
 export default async function HomePage() {
@@ -43,43 +42,10 @@ export default async function HomePage() {
           linkLabel="Ver todas as categorias"
         />
         {categories.length ? (
-          <div className="mt-8 grid grid-cols-2 gap-x-3 gap-y-8 md:gap-5 lg:grid-cols-4 lg:gap-6">
-            {categories.slice(0, 4).map((category) => {
-              const image =
-                typeof category.image === 'object' ? (category.image as MediaValue) : null
-              return (
-                <Link
-                  key={category.id}
-                  href={`/produtos?categoria=${category.slug}`}
-                  className="group"
-                >
-                  <div className="relative aspect-[3/4] overflow-hidden rounded-[14px] bg-[#f4eee9]">
-                    {image?.url ? (
-                      <Image
-                        src={image.url}
-                        alt={image.alt || category.name}
-                        fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-[1.025]"
-                        sizes="(max-width: 768px) 50vw, 25vw"
-                      />
-                    ) : (
-                      <div className="grid h-full place-items-center text-xs text-[#77766f]">
-                        Imagem da categoria
-                      </div>
-                    )}
-                  </div>
-                  <div className="mt-4 flex items-center justify-between gap-3">
-                    <h3 className="font-editorial text-2xl leading-none md:text-[28px]">
-                      {category.name}
-                    </h3>
-                    <ArrowRight
-                      size={17}
-                      className="text-[#596a49] transition-transform group-hover:translate-x-1"
-                    />
-                  </div>
-                </Link>
-              )
-            })}
+          <div className="mt-12 grid grid-cols-2 gap-x-5 gap-y-8 md:gap-x-8 md:gap-y-10 lg:grid-cols-4 lg:gap-6">
+            {categories.slice(0, 4).map((category) => (
+              <CategoryCard key={category.id} category={category} />
+            ))}
           </div>
         ) : (
           <EmptyContent text="As categorias publicadas aparecerão aqui." />
