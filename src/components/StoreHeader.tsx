@@ -49,7 +49,7 @@ export function StoreHeader({
     ['Início', '/'],
     ['Produtos', '/produtos'],
     ['Categorias', '/#categorias'],
-    ['Destaques', '/#mais-vendidos'],
+    ...(products.some((product) => product.featured) ? [['Destaques', '/#mais-vendidos']] : []),
     ['Contato', '/#contato'],
   ]
 
@@ -98,7 +98,7 @@ export function StoreHeader({
 
       <dialog
         ref={menuRef}
-        className="store-dialog fixed inset-0 m-0 h-svh max-h-none w-[min(88vw,380px)] max-w-none bg-[#fffaf7] p-6 text-[#22251f] shadow-2xl"
+        className="store-dialog fixed inset-0 m-0 h-svh max-h-none w-[min(88vw,380px)] max-w-none bg-[#fffaf7] p-6 text-[#22251f]"
         aria-label="Menu da loja"
         onCancel={() => setMenuOpen(false)}
         onClick={(event) => {

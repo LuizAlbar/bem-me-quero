@@ -1,11 +1,11 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { ArrowLeft, Check, MessageCircle } from 'lucide-react'
+import { ArrowLeft, Check, ChevronDown, MessageCircle } from 'lucide-react'
 import { ProductCard, formatCurrency } from '@/components/ProductCard'
 import { getProductBySlug, getProducts, getStoreSettings, type MediaValue } from '@/lib/store-data'
-import { getProductPrice } from '@/lib/catalog'
+import { getProductPrice, hasSalePrice } from '@/lib/catalog'
 import { getWhatsAppUrl } from '@/lib/contact-links'
+import { ProductMedia } from '@/components/ProductMedia'
 
 export const dynamic = 'force-dynamic'
 
@@ -38,7 +38,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       <div className="mx-auto max-w-[1320px] px-5 py-5 md:px-8 lg:px-10">
         <Link
           href="/produtos"
-          className="inline-flex items-center gap-2 text-xs font-semibold text-[#596a49]"
+          className="inline-flex min-h-11 items-center gap-2 text-xs font-semibold text-brand"
         >
           <ArrowLeft size={15} /> Voltar aos produtos
         </Link>
@@ -50,30 +50,26 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               {images.map((image, index) => (
                 <div
                   key={image.id}
-                  className={`relative overflow-hidden rounded-2xl bg-[#f4eee9] ${
+                  className={`product-image relative overflow-hidden bg-paper ${
                     index === 0 ? 'col-span-2 aspect-[5/4]' : 'aspect-[4/5]'
                   }`}
                 >
-                  {image.url && (
-                    <Image
-                      src={image.url}
-                      alt={image.alt || `${product.name} — imagem ${index + 1}`}
-                      fill
-                      priority={index === 0}
-                      className="object-cover"
-                      sizes={
-                        index === 0
-                          ? '(max-width: 1024px) 100vw, 55vw'
-                          : '(max-width: 1024px) 50vw, 28vw'
-                      }
-                    />
-                  )}
+                  <ProductMedia
+                    images={[image]}
+                    name={`${product.name} — imagem ${index + 1}`}
+                    priority={index === 0}
+                    sizes={
+                      index === 0
+                        ? '(max-width: 1024px) 100vw, 55vw'
+                        : '(max-width: 1024px) 50vw, 28vw'
+                    }
+                  />
                 </div>
               ))}
             </div>
           ) : (
-            <div className="grid aspect-[4/5] place-items-center rounded-2xl bg-[#f4eee9] text-sm text-muted">
-              Imagens do produto
+            <div className="product-image relative aspect-[5/4] overflow-hidden bg-paper">
+              <ProductMedia images={[]} name={product.name} sizes="100vw" />
             </div>
           )}
         </div>
@@ -84,7 +80,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             <span className="text-xl font-semibold text-[#596a49]">
               {formatCurrency(getProductPrice(product))}
             </span>
-            {product.salePrice != null && product.salePrice < product.price && (
+            {hasSalePrice(product) && (
               <span className="text-sm text-muted line-through">
                 {formatCurrency(product.price)}
               </span>
@@ -171,9 +167,16 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
 function Detail({ title, text }: { title: string; text: string }) {
   return (
-    <div className="py-5">
-      <h2 className="text-sm font-semibold">{title}</h2>
+    <details className="product-detail py-2">
+      <summary className="flex min-h-11 cursor-pointer items-center justify-between gap-4 text-sm font-semibold">
+        {title}{' '}
+        <ChevronDown
+          size={17}
+          className="transition-transform motion-reduce:transition-none"
+          aria-hidden="true"
+        />
+      </summary>
       <p className="mt-2 text-sm leading-6 text-muted">{text}</p>
-    </div>
+    </details>
   )
 }

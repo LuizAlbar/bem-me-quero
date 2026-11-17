@@ -2,18 +2,26 @@
 
 import { useEffect, useId, useMemo, useState } from 'react'
 import { Search, SlidersHorizontal, X } from 'lucide-react'
+import Link from 'next/link'
 import { ProductCard } from '@/components/ProductCard'
 import type { CategoryView, ProductView } from '@/lib/store-data'
-import { filterCatalog, getCategoryFromSearch } from '@/lib/catalog'
+import {
+  filterCatalog,
+  getCatalogFiltersFromSearch,
+  getCatalogSearch,
+  type CatalogFilters,
+} from '@/lib/catalog'
 
 export function ProductExplorer({
   products,
   categories,
   compact = false,
+  contactHref,
 }: {
   products: ProductView[]
   categories: CategoryView[]
   compact?: boolean
+  contactHref?: string | null
 }) {
   const [category, setCategory] = useState('all')
   const [sort, setSort] = useState('recent')
@@ -27,7 +35,11 @@ export function ProductExplorer({
   useEffect(() => {
     if (compact) return
     const syncCategory = () => {
-      setCategory(getCategoryFromSearch(window.location.search, categories))
+      const filters = getCatalogFiltersFromSearch(window.location.search, categories)
+      setCategory(filters.category)
+      setQuery(filters.query)
+      setSort(filters.sort)
+      setAvailability(filters.availability)
       setVisible(initialVisible)
     }
     syncCategory()
@@ -41,25 +53,36 @@ export function ProductExplorer({
   )
   const hasFilters =
     category !== 'all' || availability !== 'all' || Boolean(query.trim()) || sort !== 'recent'
+  const filterCount = [
+    category !== 'all',
+    availability !== 'all',
+    Boolean(query.trim()),
+    sort !== 'recent',
+  ].filter(Boolean).length
+
+  function updateUrl(next: Partial<CatalogFilters>, replace = false) {
+    if (compact) return
+    const url = new URL(window.location.href)
+    url.search = getCatalogSearch({ category, availability, query, sort, ...next }, url.search)
+    if (url.href !== window.location.href) {
+      if (replace) window.history.replaceState(null, '', url)
+      else window.history.pushState(null, '', url)
+    }
+  }
 
   function selectCategory(value: string) {
     setCategory(value)
     setVisible(initialVisible)
-    if (!compact) {
-      const url = new URL(window.location.href)
-      if (value === 'all') url.searchParams.delete('categoria')
-      else url.searchParams.set('categoria', value)
-      // Native history integrates with Next's router without refetching the catalog.
-      // https://nextjs.org/docs/app/getting-started/linking-and-navigating#native-history-api
-      if (url.href !== window.location.href) window.history.pushState(null, '', url)
-    }
+    updateUrl({ category: value })
   }
 
   function resetFilters() {
-    selectCategory('all')
+    setCategory('all')
+    setVisible(initialVisible)
     setAvailability('all')
     setSort('recent')
     setQuery('')
+    updateUrl({ category: 'all', availability: 'all', query: '', sort: 'recent' })
   }
 
   return (
@@ -94,9 +117,11 @@ export function ProductExplorer({
               value={query}
               onChange={(event) => {
                 setQuery(event.target.value)
+                updateUrl({ query: event.target.value }, true)
                 setVisible(initialVisible)
               }}
               placeholder="Buscar produto"
+              maxLength={200}
               className="h-full min-w-0 flex-1 bg-transparent pr-3 text-base outline-none placeholder:text-muted"
             />
             {query && (
@@ -104,7 +129,10 @@ export function ProductExplorer({
                 type="button"
                 className="grid size-11 shrink-0 place-items-center"
                 aria-label="Limpar busca"
-                onClick={() => setQuery('')}
+                onClick={() => {
+                  setQuery('')
+                  updateUrl({ query: '' }, true)
+                }}
               >
                 <X size={15} />
               </button>
@@ -113,15 +141,25 @@ export function ProductExplorer({
           <button
             type="button"
             className="grid size-11 place-items-center rounded-xl border border-[#e8e3df] lg:hidden"
-            aria-label="Abrir filtros e ordenação"
+            aria-label={`Abrir filtros e ordenação${filterCount ? `, ${filterCount} ativos` : ''}`}
             aria-expanded={filtersOpen}
             aria-controls={`${id}-availability ${id}-sort`}
             onClick={() => setFiltersOpen((current) => !current)}
           >
-            <SlidersHorizontal size={17} />
+            <span className="relative">
+              <SlidersHorizontal size={17} />
+              {filterCount > 0 && (
+                <span
+                  aria-hidden="true"
+                  className="absolute -right-3 -top-3 grid size-4 place-items-center rounded-full bg-brand text-[10px] text-white"
+                >
+                  {filterCount}
+                </span>
+              )}
+            </span>
           </button>
           <label
-            className={`${filtersOpen ? 'flex' : 'hidden'} w-full items-center sm:w-auto lg:flex`}
+            className={`filter-options ${filtersOpen ? 'flex' : 'hidden'} w-full items-center sm:w-auto lg:flex`}
           >
             <span className="sr-only">Filtrar por disponibilidade</span>
             <select
@@ -129,6 +167,7 @@ export function ProductExplorer({
               value={availability}
               onChange={(event) => {
                 setAvailability(event.target.value)
+                updateUrl({ availability: event.target.value })
                 setVisible(initialVisible)
               }}
               className="h-11 w-full rounded-xl border border-border bg-white px-3 text-base"
@@ -140,7 +179,7 @@ export function ProductExplorer({
             </select>
           </label>
           <label
-            className={`${filtersOpen ? 'flex' : 'hidden'} w-full items-center sm:w-auto lg:flex`}
+            className={`filter-options ${filtersOpen ? 'flex' : 'hidden'} w-full items-center sm:w-auto lg:flex`}
           >
             <span className="sr-only">Ordenar produtos</span>
             <select
@@ -148,6 +187,7 @@ export function ProductExplorer({
               value={sort}
               onChange={(event) => {
                 setSort(event.target.value)
+                updateUrl({ sort: event.target.value })
                 setVisible(initialVisible)
               }}
               className="h-11 w-full rounded-xl border border-border bg-white px-3 text-base"
@@ -197,12 +237,26 @@ export function ProductExplorer({
         </>
       ) : (
         <div className="mt-8 rounded-2xl bg-[#f8e1dd]/45 px-5 py-16 text-center">
-          <h3 className="font-editorial text-3xl">Nenhum produto por aqui</h3>
+          <h3 className="font-editorial text-3xl">
+            {hasFilters ? 'Nenhum produto encontrado' : 'Catálogo em atualização'}
+          </h3>
           <p className="mx-auto mt-3 max-w-md text-sm text-muted">
             {hasFilters
               ? 'Tente limpar a busca ou escolher outra categoria.'
-              : 'Nenhum produto disponível no momento.'}
+              : contactHref
+                ? 'Consulte os produtos disponíveis pelo WhatsApp.'
+                : 'Nenhum produto disponível no momento.'}
           </p>
+          {!hasFilters && contactHref && (
+            <Link
+              href={contactHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="button-primary mt-6"
+            >
+              Falar no WhatsApp
+            </Link>
+          )}
         </div>
       )}
     </div>

@@ -1,0 +1,381 @@
+{
+  "public": [
+    {
+      "circles": [
+        {
+          "h": 125,
+          "radius": "3.35544e+07px",
+          "w": 125
+        },
+        {
+          "h": 125,
+          "radius": "3.35544e+07px",
+          "w": 125
+        },
+        {
+          "h": 125,
+          "radius": "3.35544e+07px",
+          "w": 125
+        },
+        {
+          "h": 125,
+          "radius": "3.35544e+07px",
+          "w": 125
+        }
+      ],
+      "headerPosition": "absolute",
+      "hero": 900,
+      "pageWidth": 310,
+      "route": "/",
+      "social": [
+        "https://www.instagram.com/bemequeromake/",
+        "https://wa.me/558391155229",
+        "https://www.instagram.com/bemequeromake/",
+        "https://wa.me/558391155229",
+        "https://www.instagram.com/bemequeromake/",
+        "https://wa.me/558391155229"
+      ],
+      "width": 320
+    },
+    {
+      "circles": [
+        {
+          "h": 160,
+          "radius": "3.35544e+07px",
+          "w": 160
+        },
+        {
+          "h": 160,
+          "radius": "3.35544e+07px",
+          "w": 160
+        },
+        {
+          "h": 160,
+          "radius": "3.35544e+07px",
+          "w": 160
+        },
+        {
+          "h": 160,
+          "radius": "3.35544e+07px",
+          "w": 160
+        }
+      ],
+      "headerPosition": "absolute",
+      "hero": 844,
+      "pageWidth": 380,
+      "route": "/",
+      "social": [
+        "https://www.instagram.com/bemequeromake/",
+        "https://wa.me/558391155229",
+        "https://www.instagram.com/bemequeromake/",
+        "https://wa.me/558391155229",
+        "https://www.instagram.com/bemequeromake/",
+        "https://wa.me/558391155229"
+      ],
+      "width": 390
+    },
+    {
+      "circles": [
+        {
+          "h": 300,
+          "radius": "3.35544e+07px",
+          "w": 300
+        },
+        {
+          "h": 300,
+          "radius": "3.35544e+07px",
+          "w": 300
+        },
+        {
+          "h": 300,
+          "radius": "3.35544e+07px",
+          "w": 300
+        },
+        {
+          "h": 300,
+          "radius": "3.35544e+07px",
+          "w": 300
+        }
+      ],
+      "headerPosition": "absolute",
+      "hero": 1024,
+      "pageWidth": 758,
+      "route": "/",
+      "social": [
+        "https://www.instagram.com/bemequeromake/",
+        "https://wa.me/558391155229",
+        "https://www.instagram.com/bemequeromake/",
+        "https://wa.me/558391155229",
+        "https://www.instagram.com/bemequeromake/",
+        "https://wa.me/558391155229"
+      ],
+      "width": 768
+    },
+    {
+      "circles": [
+        {
+          "h": 209.5,
+          "radius": "3.35544e+07px",
+          "w": 209.5
+        },
+        {
+          "h": 209.5,
+          "radius": "3.35544e+07px",
+          "w": 209.5
+        },
+        {
+          "h": 209.5,
+          "radius": "3.35544e+07px",
+          "w": 209.5
+        },
+        {
+          "h": 209.5,
+          "radius": "3.35544e+07px",
+          "w": 209.5
+        }
+      ],
+      "headerPosition": "absolute",
+      "hero": 900,
+      "pageWidth": 1014,
+      "route": "/",
+      "social": [
+        "https://www.instagram.com/bemequeromake/",
+        "https://wa.me/558391155229",
+        "https://www.instagram.com/bemequeromake/",
+        "https://wa.me/558391155229",
+        "https://www.instagram.com/bemequeromake/",
+        "https://wa.me/558391155229"
+      ],
+      "width": 1024
+    },
+    {
+      "circles": [
+        {
+          "h": 286,
+          "radius": "3.35544e+07px",
+          "w": 286
+        },
+        {
+          "h": 286,
+          "radius": "3.35544e+07px",
+          "w": 286
+        },
+        {
+          "h": 286,
+          "radius": "3.35544e+07px",
+          "w": 286
+        },
+        {
+          "h": 286,
+          "radius": "3.35544e+07px",
+          "w": 286
+        }
+      ],
+      "headerPosition": "absolute",
+      "hero": 900,
+      "pageWidth": 1430,
+      "route": "/",
+      "social": [
+        "https://www.instagram.com/bemequeromake/",
+        "https://wa.me/558391155229",
+        "https://www.instagram.com/bemequeromake/",
+        "https://wa.me/558391155229",
+        "https://www.instagram.com/bemequeromake/",
+        "https://wa.me/558391155229"
+      ],
+      "width": 1440
+    },
+    {
+      "circles": [],
+      "headerPosition": "relative",
+      "pageWidth": 310,
+      "route": "/produtos",
+      "social": [
+        "https://www.instagram.com/bemequeromake/",
+        "https://wa.me/558391155229",
+        "https://www.instagram.com/bemequeromake/",
+        "https://wa.me/558391155229",
+        "https://www.instagram.com/bemequeromake/",
+        "https://wa.me/558391155229"
+      ],
+      "width": 320
+    },
+    {
+      "circles": [],
+      "headerPosition": "relative",
+      "pageWidth": 380,
+      "route": "/produtos",
+      "social": [
+        "https://www.instagram.com/bemequeromake/",
+        "https://wa.me/558391155229",
+        "https://www.instagram.com/bemequeromake/",
+        "https://wa.me/558391155229",
+        "https://www.instagram.com/bemequeromake/",
+        "https://wa.me/558391155229"
+      ],
+      "width": 390
+    },
+    {
+      "circles": [],
+      "headerPosition": "relative",
+      "pageWidth": 758,
+      "route": "/produtos",
+      "social": [
+        "https://www.instagram.com/bemequeromake/",
+        "https://wa.me/558391155229",
+        "https://www.instagram.com/bemequeromake/",
+        "https://wa.me/558391155229",
+        "https://www.instagram.com/bemequeromake/",
+        "https://wa.me/558391155229"
+      ],
+      "width": 768
+    },
+    {
+      "circles": [],
+      "headerPosition": "relative",
+      "pageWidth": 1014,
+      "route": "/produtos",
+      "social": [
+        "https://www.instagram.com/bemequeromake/",
+        "https://wa.me/558391155229",
+        "https://www.instagram.com/bemequeromake/",
+        "https://wa.me/558391155229",
+        "https://www.instagram.com/bemequeromake/",
+        "https://wa.me/558391155229"
+      ],
+      "width": 1024
+    },
+    {
+      "circles": [],
+      "headerPosition": "relative",
+      "pageWidth": 1430,
+      "route": "/produtos",
+      "social": [
+        "https://www.instagram.com/bemequeromake/",
+        "https://wa.me/558391155229",
+        "https://www.instagram.com/bemequeromake/",
+        "https://wa.me/558391155229",
+        "https://www.instagram.com/bemequeromake/",
+        "https://wa.me/558391155229"
+      ],
+      "width": 1440
+    }
+  ],
+  "admin": [
+    {
+      "route": "/admin/produtos",
+      "dialogWidth": 288,
+      "hint": true,
+      "imageInput": "text",
+      "pageWidth": 320,
+      "width": 320
+    },
+    {
+      "route": "/admin/produtos",
+      "dialogWidth": 358,
+      "hint": true,
+      "imageInput": "text",
+      "pageWidth": 390,
+      "width": 390
+    },
+    {
+      "route": "/admin/produtos",
+      "dialogWidth": 672,
+      "hint": true,
+      "imageInput": "text",
+      "pageWidth": 768,
+      "width": 768
+    },
+    {
+      "route": "/admin/produtos",
+      "dialogWidth": 672,
+      "hint": true,
+      "imageInput": "text",
+      "pageWidth": 1024,
+      "width": 1024
+    },
+    {
+      "route": "/admin/produtos",
+      "dialogWidth": 672,
+      "hint": true,
+      "imageInput": "text",
+      "pageWidth": 1440,
+      "width": 1440
+    },
+    {
+      "route": "/admin/categorias",
+      "dialogWidth": 288,
+      "hint": true,
+      "imageInput": "text",
+      "pageWidth": 320,
+      "width": 320
+    },
+    {
+      "route": "/admin/categorias",
+      "dialogWidth": 358,
+      "hint": true,
+      "imageInput": "text",
+      "pageWidth": 390,
+      "width": 390
+    },
+    {
+      "route": "/admin/categorias",
+      "dialogWidth": 512,
+      "hint": true,
+      "imageInput": "text",
+      "pageWidth": 768,
+      "width": 768
+    },
+    {
+      "route": "/admin/categorias",
+      "dialogWidth": 512,
+      "hint": true,
+      "imageInput": "text",
+      "pageWidth": 1024,
+      "width": 1024
+    },
+    {
+      "route": "/admin/categorias",
+      "dialogWidth": 512,
+      "hint": true,
+      "imageInput": "text",
+      "pageWidth": 1440,
+      "width": 1440
+    }
+  ],
+  "runtime": {
+    "noScripts": {
+      "banner": true,
+      "circles": 4,
+      "visible": true
+    },
+    "zoomEquivalent": {
+      "dpr": 2,
+      "menu": true,
+      "pageWidth": 710,
+      "width": 720
+    }
+  },
+  "impeccable": [],
+  "additionalChecks": {
+    "normalDialogAnimation": "panel-arrive",
+    "reducedDialogAnimation": "none",
+    "floatingShadow": "0 14px 40px rgb(38 56 43 / 14%)",
+    "offlineUpload": {
+      "pending": false,
+      "fileInputCount": 0,
+      "errorFeedback": true
+    },
+    "protectedCardFixture": {
+      "widths": [320, 390, 768, 1024, 1440],
+      "initialCards": 12,
+      "afterLoadMore": 16,
+      "validOfferBadges": 1,
+      "emptySearch": true,
+      "sort": true,
+      "availability": true,
+      "previewRemoved": true
+    },
+    "normalPublicConsoleErrors": []
+  }
+}

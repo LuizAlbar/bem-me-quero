@@ -1,5 +1,6 @@
 import { ProductExplorer } from '@/components/ProductExplorer'
-import { getCategories, getProducts } from '@/lib/store-data'
+import { getCategories, getProducts, getStoreSettings } from '@/lib/store-data'
+import { getWhatsAppUrl } from '@/lib/contact-links'
 
 export const metadata = {
   title: 'Produtos | Bem Me Quero Maquiagens',
@@ -7,7 +8,11 @@ export const metadata = {
 }
 
 export default async function ProductsPage() {
-  const [categories, products] = await Promise.all([getCategories(), getProducts()])
+  const [categories, products, settings] = await Promise.all([
+    getCategories(),
+    getProducts(),
+    getStoreSettings(),
+  ])
 
   return (
     <main>
@@ -22,7 +27,11 @@ export default async function ProductsPage() {
         </div>
       </section>
       <section className="mx-auto max-w-[1320px] px-5 section-spacing md:px-8 lg:px-10">
-        <ProductExplorer products={products} categories={categories} />
+        <ProductExplorer
+          products={products}
+          categories={categories}
+          contactHref={getWhatsAppUrl(settings.whatsapp)}
+        />
       </section>
     </main>
   )

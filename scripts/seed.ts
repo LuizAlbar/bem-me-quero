@@ -52,8 +52,7 @@ async function seed() {
           name: 'Lábios',
           slug: 'labios',
           description: 'Batons cremosos, mates, gloss labial e hidratantes com cores apaixonantes.',
-          imageUrl:
-            'https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=800&q=80',
+          imageUrl: '/assets/categories/lips.png',
           order: 1,
           visible: true,
         },
@@ -61,8 +60,7 @@ async function seed() {
           name: 'Olhos',
           slug: 'olhos',
           description: 'Máscaras de cílios, delineadores, sombras e lápis para um olhar marcante.',
-          imageUrl:
-            'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=800&q=80',
+          imageUrl: '/assets/categories/eyes.png',
           order: 2,
           visible: true,
         },
@@ -71,8 +69,7 @@ async function seed() {
           slug: 'pele',
           description:
             'Bases, corretivos, blushes e iluminadores para um acabamento leve e radiante.',
-          imageUrl:
-            'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80',
+          imageUrl: '/assets/categories/skin.png',
           order: 3,
           visible: true,
         },
@@ -81,8 +78,7 @@ async function seed() {
           slug: 'skincare',
           description:
             'Séruns, brumas hidratantes e óleos faciais para preparar e cuidar da sua pele.',
-          imageUrl:
-            'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=800&q=80',
+          imageUrl: '/assets/categories/skincare.png',
           order: 4,
           visible: true,
         },
@@ -333,7 +329,7 @@ async function seed() {
         description:
           'Na Bem Me Quero, acreditamos que se maquiar é um ritual de carinho e autocuidado. Escolhemos cada fórmula para que você se sinta radiante, confortável e confiante todos os dias.',
         buttonLabel: 'Falar no WhatsApp',
-        link: 'https://wa.me/5511999999999',
+        link: 'https://wa.me/558391155229',
         desktopImageUrl:
           'https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=1400&q=80',
         order: 3,
@@ -367,8 +363,8 @@ async function seed() {
     console.log('⚙️ Inserindo configurações da loja...')
     await db.insert(storeSettings).values({
       storeName: 'Bem Me Quero Maquiagens',
-      whatsapp: '5511999999999',
-      instagram: 'https://instagram.com/bemmequero.make',
+      whatsapp: '558391155229',
+      instagram: 'https://www.instagram.com/bemequeromake/',
       shortText:
         'Produtos de maquiagem e cuidados escolhidos com carinho para realçar o que faz você ser você.',
       contactMessage:
@@ -385,7 +381,7 @@ async function seed() {
         { id: 'link-1', label: 'Início', url: '/' },
         { id: 'link-2', label: 'Catálogo de Produtos', url: '/produtos' },
         { id: 'link-3', label: 'Categorias', url: '/#categorias' },
-        { id: 'link-4', label: 'Fale Conosco', url: 'https://wa.me/5511999999999' },
+        { id: 'link-4', label: 'Fale Conosco', url: 'https://wa.me/558391155229' },
       ],
     })
 

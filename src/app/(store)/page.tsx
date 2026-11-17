@@ -5,6 +5,8 @@ import { HeroBanner } from '@/components/HeroBanner'
 import { ProductCard } from '@/components/ProductCard'
 import { SectionHeading } from '@/components/SectionHeading'
 import { ProductExplorer } from '@/components/ProductExplorer'
+import { Reveal } from '@/components/Reveal'
+import { getWhatsAppUrl } from '@/lib/contact-links'
 import {
   getBanners,
   getCategories,
@@ -48,7 +50,7 @@ export default async function HomePage() {
 
   return (
     <main>
-      <HeroBanner banner={hero} />
+      <HeroBanner banner={hero} settings={settings} />
 
       <section
         id="categorias"
@@ -62,38 +64,43 @@ export default async function HomePage() {
           linkLabel="Ver todas as categorias"
         />
         {categories.length ? (
-          <div className="mt-12 grid grid-cols-2 gap-x-5 gap-y-8 md:gap-x-8 md:gap-y-10 lg:grid-cols-4 lg:gap-6">
+          <Reveal
+            stagger
+            className="mt-12 grid grid-cols-2 gap-x-5 gap-y-8 md:gap-x-10 md:gap-y-10 lg:grid-cols-4 lg:gap-8"
+          >
             {categories.slice(0, 4).map((category) => (
               <CategoryCard key={category.id} category={category} />
             ))}
-          </div>
+          </Reveal>
         ) : (
           <EmptyContent text="Nenhuma categoria disponível no momento." />
         )}
       </section>
 
-      <section id="mais-vendidos" className="bg-white">
-        <div className="mx-auto max-w-[1320px] px-5 section-spacing md:px-8 lg:px-10">
-          <SectionHeading
-            eyebrow="Nossa seleção"
-            title="Destaques da loja"
-            text="Uma seleção especial de produtos em destaque na nossa vitrine."
-            href="/produtos"
-            linkLabel="Ver todos os produtos"
-          />
-          {featuredProducts.length ? (
-            <div className="mt-8 grid grid-cols-2 gap-x-3 gap-y-10 md:grid-cols-4 md:gap-6">
-              {featuredProducts.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
-          ) : (
-            <EmptyContent text="Nenhum destaque disponível no momento." />
-          )}
-        </div>
-      </section>
+      {featuredProducts.length > 0 && (
+        <section id="mais-vendidos" className="bg-paper">
+          <div className="mx-auto max-w-[1320px] px-5 section-spacing md:px-8 lg:px-10">
+            <SectionHeading
+              eyebrow="Nossa seleção"
+              title="Destaques da loja"
+              text="Uma seleção especial de produtos em destaque na nossa vitrine."
+              href="/produtos"
+              linkLabel="Ver todos os produtos"
+            />
+            {featuredProducts.length ? (
+              <div className="mt-8 grid grid-cols-2 gap-x-3 gap-y-10 md:grid-cols-4 md:gap-6">
+                {featuredProducts.map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))}
+              </div>
+            ) : (
+              <EmptyContent text="Nenhum destaque disponível no momento." />
+            )}
+          </div>
+        </section>
+      )}
 
-      <BannerSection banner={campaign} variant="campaign" />
+      <BannerSection banner={campaign} variant="campaign" settings={settings} />
 
       <section
         id="produtos"
@@ -105,12 +112,17 @@ export default async function HomePage() {
           text="Maquiagens para acompanhar seus dias com leveza, cor e personalidade."
         />
         <div className="mt-8">
-          <ProductExplorer products={products} categories={categories} compact />
+          <ProductExplorer
+            products={products}
+            categories={categories}
+            compact
+            contactHref={getWhatsAppUrl(settings.whatsapp)}
+          />
         </div>
       </section>
 
       <div id="conheca">
-        <BannerSection banner={institutional} variant="institutional" />
+        <BannerSection banner={institutional} variant="institutional" settings={settings} />
       </div>
 
       {testimonials.length > 0 && (
@@ -119,7 +131,7 @@ export default async function HomePage() {
             <SectionHeading eyebrow="Depoimentos" title="O carinho de quem compra com a gente" />
             <div className="mt-8 grid gap-4 md:grid-cols-3">
               {testimonials.slice(0, 3).map((testimonial) => (
-                <figure key={testimonial.id} className="rounded-2xl bg-[#fffaf7] p-7 md:p-8">
+                <figure key={testimonial.id} className="rounded-card bg-paper p-6 md:p-8">
                   <span className="font-editorial text-5xl leading-none text-[#cb8f98]">“</span>
                   <blockquote className="mt-4 text-[15px] leading-7 text-[#4e504a]">
                     {testimonial.text}
@@ -135,8 +147,10 @@ export default async function HomePage() {
       )}
 
       {benefits.length > 0 && (
-        <section className="border-b border-border bg-surface">
-          <div className="mx-auto grid max-w-[1320px] gap-6 px-5 py-10 md:grid-cols-3 md:px-8 lg:px-10">
+        <section className="border-b border-border bg-petal">
+          <div
+            className={`mx-auto grid max-w-[1320px] gap-6 px-5 py-10 md:px-8 lg:px-10 ${benefits.length > 1 ? 'md:grid-cols-3' : ''}`}
+          >
             {benefits.map((benefit) => (
               <Benefit key={benefit.title} {...benefit} />
             ))}

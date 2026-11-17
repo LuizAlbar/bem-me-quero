@@ -1,0 +1,178 @@
+{
+  "date": "2026-11-17",
+  "stockQuantityTracked": false,
+  "products": [
+    {
+      "id": "e9e892a4-aece-4524-80d6-f6dcd58c7c8d",
+      "slug": "gloss-labial-hidratante-brilho-espelhado",
+      "name": "Gloss Labial Hidratante Brilho Espelhado",
+      "category": "Lábios",
+      "price": "42.90",
+      "salePrice": "38.90",
+      "availability": "available",
+      "featured": true,
+      "badge": "best-seller",
+      "images": [
+        {
+          "id": "img-gloss-1",
+          "alt": "Gloss Labial Hidratante",
+          "url": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=800&q=80",
+          "reference": true
+        },
+        {
+          "id": "img-gloss-2",
+          "alt": "Textura do Gloss Labial",
+          "url": "https://images.unsplash.com/photo-1631214524020-7e18db9a8f92?auto=format&fit=crop&w=800&q=80",
+          "reference": true
+        }
+      ],
+      "withheldDemonstration": true
+    },
+    {
+      "id": "289bf02c-b92c-4bd7-8a22-c54ff8e60764",
+      "slug": "batom-matte-aveludado-longa-duracao",
+      "name": "Batom Matte Aveludado Longa Duração",
+      "category": "Lábios",
+      "price": "49.90",
+      "salePrice": null,
+      "availability": "available",
+      "featured": true,
+      "badge": "highlight",
+      "images": [
+        {
+          "id": "img-batom-1",
+          "alt": "Batom Matte Aveludado",
+          "url": "https://images.unsplash.com/photo-1591360236480-4ed861025fa1?auto=format&fit=crop&w=800&q=80",
+          "reference": true
+        },
+        {
+          "id": "img-batom-2",
+          "alt": "Detalhe do Batom Matte",
+          "url": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=800&q=80",
+          "reference": true
+        }
+      ],
+      "withheldDemonstration": true
+    },
+    {
+      "id": "b5aa3f60-f1cd-4a9e-80a1-663d8cde396b",
+      "slug": "mascara-cilios-volume-alongamento-intenso",
+      "name": "Máscara de Cílios Volume & Alongamento Intenso",
+      "category": "Olhos",
+      "price": "54.90",
+      "salePrice": "47.90",
+      "availability": "available",
+      "featured": true,
+      "badge": "best-seller",
+      "images": [
+        {
+          "id": "img-mascara-1",
+          "alt": "Máscara de Cílios Volume Intenso",
+          "url": "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=800&q=80",
+          "reference": true
+        }
+      ],
+      "withheldDemonstration": true
+    },
+    {
+      "id": "ce2e44b5-c45a-4234-a1cb-4172ab92ede8",
+      "slug": "paleta-sombras-neutras-iluminadas",
+      "name": "Paleta de Sombras Neutras e Iluminadas",
+      "category": "Olhos",
+      "price": "89.90",
+      "salePrice": "79.90",
+      "availability": "available",
+      "featured": true,
+      "badge": "highlight",
+      "images": [
+        {
+          "id": "img-paleta-1",
+          "alt": "Paleta de Sombras Neutras",
+          "url": "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=800&q=80",
+          "reference": true
+        }
+      ],
+      "withheldDemonstration": true
+    },
+    {
+      "id": "cdb4de32-9837-496d-867f-d4a732853c85",
+      "slug": "blush-liquido-efeito-natural-pessego",
+      "name": "Blush Líquido Efeito Natural Pêssego Dourado",
+      "category": "Pele",
+      "price": "45.90",
+      "salePrice": "39.90",
+      "availability": "available",
+      "featured": true,
+      "badge": "offer",
+      "images": [
+        {
+          "id": "img-blush-1",
+          "alt": "Blush Líquido Pêssego",
+          "url": "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80",
+          "reference": true
+        }
+      ],
+      "withheldDemonstration": true
+    },
+    {
+      "id": "47c8a28b-e90d-43c2-a6d2-aee95c661d16",
+      "slug": "base-liquida-acabamento-natural-glow",
+      "name": "Base Líquida Acabamento Natural Glow",
+      "category": "Pele",
+      "price": "69.90",
+      "salePrice": null,
+      "availability": "available",
+      "featured": false,
+      "badge": "new",
+      "images": [
+        {
+          "id": "img-base-1",
+          "alt": "Base Líquida Natural Glow",
+          "url": "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80",
+          "reference": true
+        }
+      ],
+      "withheldDemonstration": true
+    },
+    {
+      "id": "7a932858-ff34-49e3-bdf3-3d755070b6da",
+      "slug": "serum-facial-hidratante-acido-hialuronico",
+      "name": "Sérum Facial Hidratante com Ácido Hialurônico",
+      "category": "Skincare",
+      "price": "64.90",
+      "salePrice": "56.90",
+      "availability": "available",
+      "featured": true,
+      "badge": "highlight",
+      "images": [
+        {
+          "id": "img-serum-1",
+          "alt": "Sérum Facial Hidratante",
+          "url": "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=800&q=80",
+          "reference": true
+        }
+      ],
+      "withheldDemonstration": true
+    },
+    {
+      "id": "bd0ac547-cc2e-478e-93b1-437f7e2a7fd2",
+      "slug": "bruma-fixadora-hidratante-iluminadora",
+      "name": "Bruma Fixadora e Hidratante Iluminadora",
+      "category": "Skincare",
+      "price": "44.90",
+      "salePrice": null,
+      "availability": "low",
+      "featured": false,
+      "badge": "new",
+      "images": [
+        {
+          "id": "img-bruma-1",
+          "alt": "Bruma Fixadora Iluminadora",
+          "url": "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=800&q=80",
+          "reference": true
+        }
+      ],
+      "withheldDemonstration": true
+    }
+  ]
+}

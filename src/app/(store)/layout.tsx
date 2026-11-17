@@ -15,7 +15,10 @@ export default async function StoreLayout({ children }: { children: ReactNode })
       <div id="root" tabIndex={-1}>
         {children}
       </div>
-      <StoreFooter settings={settings} />
+      <StoreFooter
+        settings={settings}
+        hasHighlights={products.some((product) => product.featured)}
+      />
     </>
   )
 }

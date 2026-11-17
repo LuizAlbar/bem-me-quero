@@ -1,7 +1,14 @@
 import { cache } from 'react'
 import { asc, desc, eq } from 'drizzle-orm'
 import { db } from '@/db'
-import { banners, categories, products, storeSettings, testimonials } from '@/db/schema'
+import { banners, categories, products, testimonials } from '@/db/schema'
+import { readStoreSettings } from '@/lib/store-settings'
+import {
+  isDemonstrationProduct,
+  isDemonstrationTestimonial,
+  getReviewedBenefits,
+  isReferenceImage,
+} from '@/lib/content-review'
 
 export type MediaValue = {
   id: string | number
@@ -130,35 +137,37 @@ export const getProducts = cache(async (): Promise<ProductView[]> => {
 
     if (!rows.length) return []
 
-    return rows.map((prod) => ({
-      id: prod.id,
-      name: prod.name,
-      slug: prod.slug,
-      description: prod.description,
-      price: Number(prod.price),
-      salePrice: prod.salePrice ? Number(prod.salePrice) : null,
-      category: prod.category
-        ? {
-            id: prod.category.id,
-            name: prod.category.name,
-            slug: prod.category.slug,
-            description: prod.category.description,
-            image: prod.category.imageUrl
-              ? { id: `img-${prod.category.id}`, url: prod.category.imageUrl }
-              : null,
-          }
-        : null,
-      images: prod.images || [],
-      availability: prod.availability as 'available' | 'low' | 'unavailable',
-      featured: prod.featured,
-      badge: prod.badge as 'none' | 'best-seller' | 'new' | 'highlight' | 'offer',
-      variants: prod.variants || [],
-      details: prod.details,
-      usage: prod.usage,
-    }))
+    return rows
+      .filter((product) => !isDemonstrationProduct(product))
+      .map((prod) => ({
+        id: prod.id,
+        name: prod.name,
+        slug: prod.slug,
+        description: prod.description,
+        price: Number(prod.price),
+        salePrice: prod.salePrice ? Number(prod.salePrice) : null,
+        category: prod.category
+          ? {
+              id: prod.category.id,
+              name: prod.category.name,
+              slug: prod.category.slug,
+              description: prod.category.description,
+              image: prod.category.imageUrl
+                ? { id: `img-${prod.category.id}`, url: prod.category.imageUrl }
+                : null,
+            }
+          : null,
+        images: (prod.images || []).filter((image) => !isReferenceImage(image.url)),
+        availability: prod.availability as 'available' | 'low' | 'unavailable',
+        featured: prod.featured,
+        badge: prod.badge as 'none' | 'best-seller' | 'new' | 'highlight' | 'offer',
+        variants: prod.variants || [],
+        details: prod.details,
+        usage: prod.usage,
+      }))
   } catch (error) {
     console.warn('Erro ao carregar produtos do banco:', error)
-    return []
+    throw new Error('Não foi possível carregar os produtos. Tente novamente.')
   }
 })
 
@@ -169,7 +178,7 @@ export async function getProductBySlug(slug: string): Promise<ProductView | null
       with: { category: true },
     })
 
-    if (!prod) return null
+    if (!prod || isDemonstrationProduct(prod)) return null
 
     return {
       id: prod.id,
@@ -189,7 +198,7 @@ export async function getProductBySlug(slug: string): Promise<ProductView | null
               : null,
           }
         : null,
-      images: prod.images || [],
+      images: (prod.images || []).filter((image) => !isReferenceImage(image.url)),
       availability: prod.availability as 'available' | 'low' | 'unavailable',
       featured: prod.featured,
       badge: prod.badge as 'none' | 'best-seller' | 'new' | 'highlight' | 'offer',
@@ -199,7 +208,7 @@ export async function getProductBySlug(slug: string): Promise<ProductView | null
     }
   } catch (error) {
     console.warn(`Erro ao carregar produto ${slug} do banco:`, error)
-    return null
+    throw new Error('Não foi possível carregar o produto. Tente novamente.')
   }
 }
 
@@ -212,9 +221,16 @@ export async function getBanners(): Promise<BannerView[]> {
     return rows.map((b) => ({
       id: b.id,
       placement: b.placement as 'hero' | 'campaign' | 'institutional',
-      eyebrow: b.eyebrow,
+      eyebrow:
+        b.placement === 'campaign' && b.eyebrow === 'Coleção Leveza'
+          ? 'Seleção Bem Me Quero'
+          : b.eyebrow,
       title: b.title,
-      description: b.description,
+      description:
+        b.description ===
+        'Produtos multifuncionais desenvolvidos para valorizar sua beleza única de forma descomplicada.'
+          ? 'Uma seleção de maquiagens para valorizar sua beleza, do seu jeito.'
+          : b.description,
       buttonLabel: b.buttonLabel,
       link: b.link,
       desktopImage: b.desktopImageUrl
@@ -234,12 +250,14 @@ export async function getTestimonials(): Promise<TestimonialView[]> {
   try {
     const rows = await db.select().from(testimonials).orderBy(asc(testimonials.order))
 
-    return rows.map((t) => ({
-      id: t.id,
-      displayName: t.displayName,
-      text: t.text,
-      rating: t.rating,
-    }))
+    return rows
+      .filter((testimonial) => !isDemonstrationTestimonial(testimonial))
+      .map((t) => ({
+        id: t.id,
+        displayName: t.displayName,
+        text: t.text,
+        rating: t.rating,
+      }))
   } catch (error) {
     console.warn('Erro ao carregar depoimentos do banco:', error)
     return []
@@ -248,7 +266,7 @@ export async function getTestimonials(): Promise<TestimonialView[]> {
 
 export const getStoreSettings = cache(async (): Promise<SettingsView> => {
   try {
-    const [row] = await db.select().from(storeSettings).limit(1)
+    const row = await readStoreSettings()
     if (!row) return FALLBACK_SETTINGS
 
     return {
@@ -258,7 +276,7 @@ export const getStoreSettings = cache(async (): Promise<SettingsView> => {
       instagram: row.instagram,
       shortText: row.shortText,
       contactMessage: row.contactMessage,
-      benefits: row.benefits,
+      benefits: getReviewedBenefits(row.benefits),
       usefulLinks: row.usefulLinks,
     }
   } catch (error) {

@@ -1,5 +1,7 @@
 'use server'
 
+import { isSafeImageSource, validateImageUpload } from '@/lib/image-upload'
+
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { eq } from 'drizzle-orm'
@@ -66,15 +68,13 @@ export async function uploadImageAction(formData: FormData): Promise<{
   const session = await verifySession()
   if (!session) return { success: false, error: 'Acesso não autorizado.' }
 
-  const file = formData.get('file') as File | null
-  if (!file || file.size === 0) {
+  const file = formData.get('file')
+  if (!(file instanceof File)) {
     return { success: false, error: 'Nenhum arquivo enviado.' }
   }
 
-  // Validação de tipo MIME
-  if (!file.type.startsWith('image/')) {
-    return { success: false, error: 'O arquivo enviado não é uma imagem válida.' }
-  }
+  const uploadError = validateImageUpload(file)
+  if (uploadError) return { success: false, error: uploadError }
 
   try {
     const arrayBuffer = await file.arrayBuffer()
@@ -114,6 +114,8 @@ export async function createCategoryAction(formData: FormData) {
   const slug = customSlug ? slugify(customSlug) : slugify(name)
   const description = String(formData.get('description') || '').trim() || null
   const imageUrl = String(formData.get('imageUrl') || '').trim() || null
+  if (imageUrl && !isSafeImageSource(imageUrl))
+    return { error: 'Use uma URL HTTPS ou um caminho local válido para a imagem.' }
   const order = Number(formData.get('order') || 0)
 
   if (!name || !slug) {
@@ -149,6 +151,8 @@ export async function updateCategoryAction(id: string, formData: FormData) {
   const slug = customSlug ? slugify(customSlug) : slugify(name)
   const description = String(formData.get('description') || '').trim() || null
   const imageUrl = String(formData.get('imageUrl') || '').trim() || null
+  if (imageUrl && !isSafeImageSource(imageUrl))
+    return { error: 'Use uma URL HTTPS ou um caminho local válido para a imagem.' }
   const order = Number(formData.get('order') || 0)
 
   if (!name || !slug) {
@@ -217,6 +221,8 @@ export async function createProductAction(formData: FormData) {
   const featured = formData.get('featured') === 'true'
   const badge = String(formData.get('badge') || 'none')
   const imageUrl = String(formData.get('imageUrl') || '').trim()
+  if (imageUrl && !isSafeImageSource(imageUrl))
+    return { error: 'Use uma URL HTTPS ou um caminho local válido para a imagem.' }
   const details = String(formData.get('details') || '').trim() || null
   const usage = String(formData.get('usage') || '').trim() || null
 
@@ -271,6 +277,8 @@ export async function updateProductAction(id: string, formData: FormData) {
   const featured = formData.get('featured') === 'true'
   const badge = String(formData.get('badge') || 'none')
   const imageUrl = String(formData.get('imageUrl') || '').trim()
+  if (imageUrl && !isSafeImageSource(imageUrl))
+    return { error: 'Use uma URL HTTPS ou um caminho local válido para a imagem.' }
   const details = String(formData.get('details') || '').trim() || null
   const usage = String(formData.get('usage') || '').trim() || null
 

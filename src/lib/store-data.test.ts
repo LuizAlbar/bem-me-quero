@@ -10,12 +10,12 @@ test('an empty catalog never publishes demonstration products or prices', async 
   assert.deepEqual(await getProducts(), [])
 })
 
-test('a failed catalog request does not replace real products with fabricated ones', async () => {
+test('a failed catalog request reaches error recovery instead of showing an empty or fabricated catalog', async () => {
   mock.method(db.query.products, 'findMany', async () => {
     throw new Error('unavailable')
   })
   mock.method(console, 'warn', () => {})
-  assert.deepEqual(await getProducts(), [])
+  await assert.rejects(getProducts(), /carregar os produtos/)
 })
 
 test('unconfigured settings never promise shipping, payment terms or a fake contact', () => {

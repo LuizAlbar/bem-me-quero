@@ -1,6 +1,13 @@
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
-import { filterCatalog, getCategoryFromSearch, getProductPrice, normalizeSearch } from './catalog'
+import {
+  filterCatalog,
+  getCategoryFromSearch,
+  getProductPrice,
+  normalizeSearch,
+  getCatalogFiltersFromSearch,
+  getCatalogSearch,
+} from './catalog'
 import type { ProductView } from './store-data'
 
 const products: ProductView[] = [
@@ -68,4 +75,36 @@ test('only accepts published categories from a URL and resets missing ones', () 
   assert.equal(getCategoryFromSearch('?categoria=labios', categories), 'labios')
   assert.equal(getCategoryFromSearch('?categoria=unknown', categories), 'all')
   assert.equal(getCategoryFromSearch('', categories), 'all')
+})
+
+test('does not advertise an invalid or more expensive sale price', () => {
+  for (const salePrice of [-1, 50, 70, Number.NaN, Number.POSITIVE_INFINITY]) {
+    assert.equal(getProductPrice({ price: 50, salePrice }), 50)
+  }
+  assert.equal(getProductPrice({ price: 50, salePrice: 0 }), 0)
+})
+
+test('restores all filters from a shareable URL and preserves unrelated parameters', () => {
+  const categories = [{ id: 'lips', name: 'Lábios', slug: 'labios' }]
+  const filters = getCatalogFiltersFromSearch(
+    '?categoria=labios&busca=gloss&ordem=low&disponibilidade=available',
+    categories,
+  )
+  assert.deepEqual(filters, {
+    category: 'labios',
+    query: 'gloss',
+    sort: 'low',
+    availability: 'available',
+  })
+  const params = new URLSearchParams(getCatalogSearch(filters, '?utm_source=instagram'))
+  assert.equal(params.get('utm_source'), 'instagram')
+  assert.equal(params.get('busca'), 'gloss')
+  assert.equal(
+    getCatalogSearch({ category: 'all', query: '', sort: 'recent', availability: 'all' }),
+    '',
+  )
+  assert.equal(
+    getCatalogFiltersFromSearch('?ordem=invalid&disponibilidade=bad', categories).sort,
+    'recent',
+  )
 })

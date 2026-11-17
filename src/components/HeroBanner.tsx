@@ -1,8 +1,10 @@
 import { getImageProps } from 'next/image'
 import Link from 'next/link'
-import type { BannerView } from '@/lib/store-data'
+import type { BannerView, SettingsView } from '@/lib/store-data'
+import { resolveStoreLink } from '@/lib/contact-links'
 
-export function HeroBanner({ banner }: { banner?: BannerView }) {
+export function HeroBanner({ banner, settings }: { banner?: BannerView; settings: SettingsView }) {
+  const href = resolveStoreLink(banner?.link || '/produtos', settings)
   const desktop = typeof banner?.desktopImage === 'object' ? banner.desktopImage : null
   const mobile = typeof banner?.mobileImage === 'object' ? banner.mobileImage : null
   const desktopUrl = desktop?.url || '/assets/hero-banner.png'
@@ -52,9 +54,11 @@ export function HeroBanner({ banner }: { banner?: BannerView }) {
             {banner?.description || 'Seus favoritos de maquiagem, escolhidos com carinho.'}
           </p>
           <div className="flex justify-center md:mt-8 md:justify-start">
-            <Link href={banner?.link || '/produtos'} className="button-primary shadow-sm">
-              {banner?.buttonLabel || 'Explorar produtos'}
-            </Link>
+            {href && (
+              <Link href={href} className="button-primary shadow-sm">
+                {banner?.buttonLabel || 'Explorar produtos'}
+              </Link>
+            )}
           </div>
         </div>
       </div>

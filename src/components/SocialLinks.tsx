@@ -1,5 +1,5 @@
 import type { SettingsView } from '@/lib/store-data'
-import { getWhatsAppUrl } from '@/lib/contact-links'
+import { getInstagramUrl, getWhatsAppUrl } from '@/lib/contact-links'
 
 export function SocialLinks({
   settings,
@@ -9,11 +9,12 @@ export function SocialLinks({
   className?: string
 }) {
   const whatsapp = getWhatsAppUrl(settings.whatsapp)
+  const instagram = getInstagramUrl(settings.instagram)
   return (
     <div className={`flex items-center gap-1 ${className}`}>
-      {settings.instagram && (
+      {instagram && (
         <a
-          href={settings.instagram}
+          href={instagram}
           target="_blank"
           rel="noopener noreferrer"
           className="icon-link"

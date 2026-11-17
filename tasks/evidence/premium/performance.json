@@ -1,0 +1,26 @@
+[
+  {
+    "environment": "production localhost, no throttling",
+    "width": 1440,
+    "height": 900,
+    "report": "# Page Load Profile - http://localhost:3001/\n\n## Core Web Vitals\n  TTFB    166.8ms\n  LCP      508ms (img: http://localhost:3001/_next/image?url=%2Fassets%2Fhero-banne)\n  CLS          0\n  FCP      508ms\n\n## React Hydration - no data (requires React profiling build)",
+    "reducedMotion": true,
+    "cpuThrottling": false
+  },
+  {
+    "environment": "production localhost, no throttling",
+    "width": 390,
+    "height": 844,
+    "report": "# Page Load Profile - http://localhost:3001/\n\n## Core Web Vitals\n  TTFB     11.5ms\n  LCP      172ms (img: http://localhost:3001/_next/image?url=%2Fassets%2Fhero-banne)\n  CLS          0\n  FCP      172ms\n\n## React Hydration - no data (requires React profiling build)",
+    "reducedMotion": true,
+    "cpuThrottling": false
+  },
+  {
+    "environment": "production localhost, 150ms RTT, 1.6 Mbit/s download, browser cache disabled",
+    "width": 390,
+    "height": 844,
+    "report": "# Page Load Profile - http://localhost:3001/\n\n## Core Web Vitals\n  TTFB       17ms\n  LCP     2656ms (img: http://localhost:3001/_next/image?url=%2Fassets%2Fhero-banne)\n  CLS          0\n  FCP      764ms\n\n## React Hydration - no data (requires React profiling build)",
+    "reducedMotion": true,
+    "cpuThrottling": false
+  }
+]
