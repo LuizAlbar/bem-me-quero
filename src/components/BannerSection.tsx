@@ -1,8 +1,9 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import type { BannerView, MediaValue, SettingsView } from '@/lib/store-data'
+import type { BannerView, SettingsView } from '@/lib/store-data'
 import { resolveStoreLink } from '@/lib/contact-links'
 import campaignPhoto from '../../assets/sessions/banner-2.png'
+import institutionalPhoto from '../../assets/sessions/banner-3.png'
 import { Reveal } from '@/components/Reveal'
 
 export function BannerSection({
@@ -16,9 +17,6 @@ export function BannerSection({
 }) {
   if (!banner) return null
   const href = banner.link ? resolveStoreLink(banner.link, settings) : null
-  const desktop =
-    typeof banner.desktopImage === 'object' ? (banner.desktopImage as MediaValue) : null
-  const mobile = typeof banner.mobileImage === 'object' ? (banner.mobileImage as MediaValue) : null
   const isCampaign = variant === 'campaign'
   const Frame = isCampaign ? Reveal : 'div'
 
@@ -36,38 +34,21 @@ export function BannerSection({
             variant === 'institutional' ? 'md:order-2' : ''
           }`}
         >
-          {isCampaign ? (
-            <Image
-              src={campaignPhoto}
-              alt="Seleção de maquiagem com batom, máscara de cílios, blush e gloss sobre fundo rosa"
-              fill
-              className="object-cover object-center"
-              sizes="(max-width: 1023px) calc(100vw - 40px), (max-width: 1319px) 55vw, 680px"
-            />
-          ) : (
-            (mobile?.url || desktop?.url) && (
-              <>
-                {mobile?.url && (
-                  <Image
-                    src={mobile.url}
-                    alt={mobile.alt || banner.title}
-                    fill
-                    className="object-cover md:hidden"
-                    sizes="100vw"
-                  />
-                )}
-                {desktop?.url && (
-                  <Image
-                    src={desktop.url}
-                    alt={desktop.alt || banner.title}
-                    fill
-                    className={`object-cover ${mobile?.url ? 'hidden md:block' : ''}`}
-                    sizes="(max-width: 768px) 100vw, 60vw"
-                  />
-                )}
-              </>
-            )
-          )}
+          <Image
+            src={isCampaign ? campaignPhoto : institutionalPhoto}
+            alt={
+              isCampaign
+                ? 'Seleção de maquiagem com batom, máscara de cílios, blush e gloss sobre fundo rosa'
+                : 'Composição de cosméticos em tons rosados, com batom vermelho sobre fundo claro'
+            }
+            fill
+            className={`object-cover ${isCampaign ? 'object-center' : 'object-right'}`}
+            sizes={
+              isCampaign
+                ? '(max-width: 1023px) calc(100vw - 40px), (max-width: 1319px) 55vw, 680px'
+                : '(max-width: 767px) calc(100vw - 40px), (max-width: 1023px) calc(55vw - 35px), (max-width: 1319px) calc(55vw - 44px), 682px'
+            }
+          />
         </div>
         <div className="flex flex-col justify-center px-6 py-10 md:px-10 md:py-12 lg:px-12">
           {banner.eyebrow && <p className="eyebrow">{banner.eyebrow}</p>}
