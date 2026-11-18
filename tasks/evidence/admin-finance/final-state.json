@@ -1,0 +1,11 @@
+{
+  "financialEntries": 0,
+  "productsPreserved": 14,
+  "categoriesPreserved": 4,
+  "contactsPreserved": true,
+  "unauthenticatedFinanceRedirect": "/admin/login",
+  "javascriptErrors": 0,
+  "crossMonthNativeGetFilterVerified": true,
+  "databaseFixturesRolledBack": true,
+  "browserFixturesRemoved": true
+}

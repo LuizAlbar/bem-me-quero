@@ -1,0 +1,7 @@
+[
+  "Configurações: erro mantém edição; cancelar restaura; salvar persiste, bloqueia e mantém contatos originais",
+  "Financeiro: criar entrada avulsa, gasto e entrada vinculada; editar e cancelar; totais exatos 149,29 − 20,10 = 129,19",
+  "Filtros: GET por tipo, data inclusiva, categoria e produto; resultado negativo; período vazio e inválido sem métricas enganosas",
+  "Dados persistidos após recarregar; dashboard e lista com dados em cinco larguras sem overflow",
+  "Exclusão exige confirmação; cancelar preserva; três registros temporários excluídos e indicadores zerados"
+]

@@ -19,5 +19,5 @@ export async function updateStoreContactsAction(formData: FormData) {
   }
 
   revalidatePath('/', 'layout')
-  return { success: true }
+  return { success: true, settings: parsed.data }
 }

@@ -1,0 +1,7 @@
+[
+  "Paginação: 24 registros em duas páginas (20 + 4), totais idênticos e calculados sobre todo o período",
+  "Categoria isolada e período aberto: gasto de outubro incluído somente quando o filtro permite",
+  "Cinco larguras: título sem espaços com 200 caracteres, valor máximo e resumo de milhões sem overflow; controles ≥44 px",
+  "Concorrência: formulário desatualizado rejeitado sem sobrescrever o valor persistido",
+  "Valor zero rejeitado no servidor, formulário permanece editável e nenhum registro extra é criado"
+]

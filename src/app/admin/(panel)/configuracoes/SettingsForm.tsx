@@ -1,6 +1,6 @@
 'use client'
 
-import type { FormEvent } from 'react'
+import { useRef, useState, type FormEvent } from 'react'
 import { AdminFeedback } from '@/components/AdminFeedback'
 import { useAdminFeedback } from '@/lib/use-admin-feedback'
 import { getInstagramHandle } from '@/lib/contact-links'
@@ -10,11 +10,35 @@ import { updateStoreContactsAction } from './actions'
 export function SettingsForm({ settings }: { settings: StoreSocialSettings }) {
   const { pending, error, message, run, reset } = useAdminFeedback()
   const instagramHandle = getInstagramHandle(settings.instagram)
+  const [editing, setEditing] = useState(false)
+  const [saved, setSaved] = useState({
+    whatsapp: settings.whatsapp || '',
+    instagram: instagramHandle ? `@${instagramHandle}` : settings.instagram || '',
+  })
+  const [values, setValues] = useState(saved)
+  const editRef = useRef<HTMLButtonElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  function finishEditing() {
+    setEditing(false)
+    requestAnimationFrame(() => editRef.current?.focus())
+  }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
+    if (!editing || pending) return
     const data = new FormData(event.currentTarget)
-    await run(() => updateStoreContactsAction(data), 'Configurações salvas.')
+    const result = await run(() => updateStoreContactsAction(data), 'Configurações salvas.')
+    if (result?.success && result.settings) {
+      const handle = getInstagramHandle(result.settings.instagram)
+      const next = {
+        whatsapp: result.settings.whatsapp || '',
+        instagram: handle ? `@${handle}` : result.settings.instagram || '',
+      }
+      setSaved(next)
+      setValues(next)
+      finishEditing()
+    }
   }
 
   return (
@@ -31,14 +55,17 @@ export function SettingsForm({ settings }: { settings: StoreSocialSettings }) {
           </label>
           <input
             id="whatsapp"
+            ref={inputRef}
             name="whatsapp"
             type="tel"
             inputMode="tel"
             autoComplete="tel"
             maxLength={64}
-            defaultValue={settings.whatsapp || ''}
+            value={values.whatsapp}
+            readOnly={!editing}
+            onChange={(event) => setValues({ ...values, whatsapp: event.target.value })}
             aria-describedby="whatsapp-hint"
-            className="form-control mt-2"
+            className="form-control mt-2 read-only:bg-surface read-only:text-muted"
           />
           <p id="whatsapp-hint" className="mt-2 text-xs leading-5 text-muted">
             Inclua o código do país e o DDD.
@@ -56,9 +83,11 @@ export function SettingsForm({ settings }: { settings: StoreSocialSettings }) {
             autoCorrect="off"
             spellCheck={false}
             maxLength={200}
-            defaultValue={instagramHandle ? `@${instagramHandle}` : settings.instagram || ''}
+            value={values.instagram}
+            readOnly={!editing}
+            onChange={(event) => setValues({ ...values, instagram: event.target.value })}
             aria-describedby="instagram-hint"
-            className="form-control mt-2"
+            className="form-control mt-2 read-only:bg-surface read-only:text-muted"
           />
           <p id="instagram-hint" className="mt-2 text-xs leading-5 text-muted">
             Nome de usuário, @usuário ou link do perfil.
@@ -69,9 +98,42 @@ export function SettingsForm({ settings }: { settings: StoreSocialSettings }) {
         </p>
       </fieldset>
       <AdminFeedback error={error} message={message} />
-      <button type="submit" disabled={pending} className="button-primary w-full sm:w-fit">
-        {pending ? 'Salvando...' : 'Salvar configurações'}
-      </button>
+      <div className="flex flex-wrap gap-3">
+        {editing ? (
+          <>
+            <button key="save" type="submit" disabled={pending} className="button-primary">
+              {pending ? 'Salvando...' : 'Salvar'}
+            </button>
+            <button
+              key="cancel"
+              type="button"
+              disabled={pending}
+              className="button-secondary"
+              onClick={() => {
+                setValues(saved)
+                reset()
+                finishEditing()
+              }}
+            >
+              Cancelar
+            </button>
+          </>
+        ) : (
+          <button
+            key="edit"
+            ref={editRef}
+            type="button"
+            className="button-primary"
+            onClick={() => {
+              reset()
+              setEditing(true)
+              requestAnimationFrame(() => inputRef.current?.focus())
+            }}
+          >
+            Editar
+          </button>
+        )}
+      </div>
     </form>
   )
 }

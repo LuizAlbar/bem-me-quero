@@ -1,0 +1,5 @@
+{
+  "mutation": "amount validation: cents > 0 changed to cents >= 0 in isolated temporary copy",
+  "detected": true,
+  "repositorySourceModified": false
+}

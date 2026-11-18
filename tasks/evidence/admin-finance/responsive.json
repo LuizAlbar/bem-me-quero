@@ -1,0 +1,192 @@
+[
+  {
+    "route": "/admin/configuracoes",
+    "dialog": false,
+    "overflow": false,
+    "publicChrome": false,
+    "scrollWidth": 310,
+    "smallControls": [],
+    "width": 320,
+    "cancelRestores": true,
+    "focusAfterCancel": "Editar"
+  },
+  {
+    "route": "/admin/financeiro",
+    "dialog": false,
+    "overflow": false,
+    "publicChrome": false,
+    "scrollWidth": 310,
+    "smallControls": [],
+    "width": 320,
+    "modalTabFocus": "Cancelar",
+    "modal": {
+      "dialog": true,
+      "overflow": false,
+      "publicChrome": false,
+      "scrollWidth": 320,
+      "smallControls": [],
+      "width": 320
+    }
+  },
+  {
+    "route": "/admin",
+    "dialog": false,
+    "overflow": false,
+    "publicChrome": false,
+    "scrollWidth": 310,
+    "smallControls": [],
+    "width": 320
+  },
+  {
+    "route": "/admin/configuracoes",
+    "dialog": false,
+    "overflow": false,
+    "publicChrome": false,
+    "scrollWidth": 380,
+    "smallControls": [],
+    "width": 390,
+    "cancelRestores": true,
+    "focusAfterCancel": "Editar"
+  },
+  {
+    "route": "/admin/financeiro",
+    "dialog": false,
+    "overflow": false,
+    "publicChrome": false,
+    "scrollWidth": 380,
+    "smallControls": [],
+    "width": 390,
+    "modalTabFocus": "Cancelar",
+    "modal": {
+      "dialog": true,
+      "overflow": false,
+      "publicChrome": false,
+      "scrollWidth": 390,
+      "smallControls": [],
+      "width": 390
+    }
+  },
+  {
+    "route": "/admin",
+    "dialog": false,
+    "overflow": false,
+    "publicChrome": false,
+    "scrollWidth": 380,
+    "smallControls": [],
+    "width": 390
+  },
+  {
+    "route": "/admin/configuracoes",
+    "dialog": false,
+    "overflow": false,
+    "publicChrome": false,
+    "scrollWidth": 768,
+    "smallControls": [],
+    "width": 768,
+    "cancelRestores": true,
+    "focusAfterCancel": "Editar"
+  },
+  {
+    "route": "/admin/financeiro",
+    "dialog": false,
+    "overflow": false,
+    "publicChrome": false,
+    "scrollWidth": 768,
+    "smallControls": [],
+    "width": 768,
+    "modalTabFocus": "Cancelar",
+    "modal": {
+      "dialog": true,
+      "overflow": false,
+      "publicChrome": false,
+      "scrollWidth": 768,
+      "smallControls": [],
+      "width": 768
+    }
+  },
+  {
+    "route": "/admin",
+    "dialog": false,
+    "overflow": false,
+    "publicChrome": false,
+    "scrollWidth": 758,
+    "smallControls": [],
+    "width": 768
+  },
+  {
+    "route": "/admin/configuracoes",
+    "dialog": false,
+    "overflow": false,
+    "publicChrome": false,
+    "scrollWidth": 1024,
+    "smallControls": [],
+    "width": 1024,
+    "cancelRestores": true,
+    "focusAfterCancel": "Editar"
+  },
+  {
+    "route": "/admin/financeiro",
+    "dialog": false,
+    "overflow": false,
+    "publicChrome": false,
+    "scrollWidth": 1024,
+    "smallControls": [],
+    "width": 1024,
+    "modalTabFocus": "Cancelar",
+    "modal": {
+      "dialog": true,
+      "overflow": false,
+      "publicChrome": false,
+      "scrollWidth": 1024,
+      "smallControls": [],
+      "width": 1024
+    }
+  },
+  {
+    "route": "/admin",
+    "dialog": false,
+    "overflow": false,
+    "publicChrome": false,
+    "scrollWidth": 1014,
+    "smallControls": [],
+    "width": 1024
+  },
+  {
+    "route": "/admin/configuracoes",
+    "dialog": false,
+    "overflow": false,
+    "publicChrome": false,
+    "scrollWidth": 1440,
+    "smallControls": [],
+    "width": 1440,
+    "cancelRestores": true,
+    "focusAfterCancel": "Editar"
+  },
+  {
+    "route": "/admin/financeiro",
+    "dialog": false,
+    "overflow": false,
+    "publicChrome": false,
+    "scrollWidth": 1440,
+    "smallControls": [],
+    "width": 1440,
+    "modalTabFocus": "Cancelar",
+    "modal": {
+      "dialog": true,
+      "overflow": false,
+      "publicChrome": false,
+      "scrollWidth": 1440,
+      "smallControls": [],
+      "width": 1440
+    }
+  },
+  {
+    "route": "/admin",
+    "dialog": false,
+    "overflow": false,
+    "publicChrome": false,
+    "scrollWidth": 1430,
+    "smallControls": [],
+    "width": 1440
+  }
+]

@@ -1,4 +1,7 @@
 import Link from 'next/link'
+import { Suspense } from 'react'
+import { FinanceWorkspace } from '@/components/finance/FinanceWorkspace'
+import type { FinanceSearchParams } from '@/lib/finance-input'
 import Image from 'next/image'
 import { desc, eq } from 'drizzle-orm'
 import { AlertTriangle, ArrowRight, Layers, Package, Plus, Sparkles } from 'lucide-react'
@@ -8,7 +11,12 @@ import { formatCurrency } from '@/components/ProductCard'
 
 export const dynamic = 'force-dynamic'
 
-export default async function AdminDashboardPage() {
+export default async function AdminDashboardPage({
+  searchParams,
+}: {
+  searchParams: Promise<FinanceSearchParams>
+}) {
+  const params = await searchParams
   const [allProducts, allCategories] = await Promise.all([
     db.query.products.findMany({
       with: { category: true },
@@ -35,7 +43,7 @@ export default async function AdminDashboardPage() {
             Visão Geral da Loja
           </h1>
           <p className="mt-1 text-xs text-muted">
-            Gerencie o catálogo, categorias e estoque da Bem Me Quero.
+            Acompanhe o financeiro e o catálogo da Bem Me Quero.
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-3">
@@ -48,6 +56,27 @@ export default async function AdminDashboardPage() {
         </div>
       </div>
 
+      <section aria-label="Dashboard financeiro" className="space-y-4">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <h2 className="font-editorial text-2xl text-ink">Financeiro da loja</h2>
+          <Link
+            href="/admin/financeiro"
+            className="flex min-h-11 items-center text-sm font-semibold text-brand underline underline-offset-4"
+          >
+            Gerenciar lançamentos
+          </Link>
+        </div>
+        <Suspense
+          fallback={
+            <p role="status" className="py-6 text-sm text-muted">
+              Carregando indicadores...
+            </p>
+          }
+        >
+          <FinanceWorkspace params={params} mode="dashboard" />
+        </Suspense>
+      </section>
+      <h2 className="font-editorial text-2xl text-ink">Catálogo</h2>
       {/* Metrics Cards */}
       <div className="grid grid-cols-1 gap-4 min-[390px]:grid-cols-2 lg:grid-cols-4">
         <MetricCard
@@ -56,7 +85,7 @@ export default async function AdminDashboardPage() {
           icon={<Package size={20} className="text-[#596a49]" />}
         />
         <MetricCard
-          label="Categorias Ativas"
+          label="Categorias Cadastradas"
           value={totalCategories}
           icon={<Layers size={20} className="text-[#596a49]" />}
         />
@@ -82,7 +111,7 @@ export default async function AdminDashboardPage() {
           </div>
           <Link
             href="/admin/produtos"
-            className="flex items-center gap-1.5 text-xs font-semibold text-[#596a49] hover:underline"
+            className="flex min-h-11 items-center gap-1.5 text-xs font-semibold text-[#596a49] hover:underline"
           >
             Ver todos <ArrowRight size={13} />
           </Link>

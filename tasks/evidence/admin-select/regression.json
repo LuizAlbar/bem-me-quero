@@ -1,0 +1,57 @@
+[
+  {
+    "width": 320,
+    "clickReleaseClick": true,
+    "kinds": ["income", "expense"],
+    "categoryAndFormData": true,
+    "keyboardEndEnter": true,
+    "escapePreservesDialog": true,
+    "clearSelection": true,
+    "pageOverflow": false,
+    "controlHeight": 46
+  },
+  {
+    "width": 390,
+    "clickReleaseClick": true,
+    "kinds": ["income", "expense"],
+    "categoryAndFormData": true,
+    "keyboardEndEnter": true,
+    "escapePreservesDialog": true,
+    "clearSelection": true,
+    "pageOverflow": false,
+    "controlHeight": 46
+  },
+  {
+    "width": 768,
+    "clickReleaseClick": true,
+    "kinds": ["income", "expense"],
+    "categoryAndFormData": true,
+    "keyboardEndEnter": true,
+    "escapePreservesDialog": true,
+    "clearSelection": true,
+    "pageOverflow": false,
+    "controlHeight": 46
+  },
+  {
+    "width": 1024,
+    "clickReleaseClick": true,
+    "kinds": ["income", "expense"],
+    "categoryAndFormData": true,
+    "keyboardEndEnter": true,
+    "escapePreservesDialog": true,
+    "clearSelection": true,
+    "pageOverflow": false,
+    "controlHeight": 46
+  },
+  {
+    "width": 1440,
+    "clickReleaseClick": true,
+    "kinds": ["income", "expense"],
+    "categoryAndFormData": true,
+    "keyboardEndEnter": true,
+    "escapePreservesDialog": true,
+    "clearSelection": true,
+    "pageOverflow": false,
+    "controlHeight": 46
+  }
+]

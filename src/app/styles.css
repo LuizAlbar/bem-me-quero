@@ -82,6 +82,47 @@
 }
 
 @layer components {
+  /* Keep long option lists in the browser's top layer instead of the OS menu. */
+  @supports (appearance: base-select) {
+    select.form-select,
+    select.form-select::picker(select) {
+      appearance: base-select;
+    }
+
+    select.form-select::picker(select) {
+      inline-size: anchor-size(width);
+      max-inline-size: calc(100vw - 2rem);
+      max-block-size: min(20rem, 50svh);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-control);
+      background: var(--color-paper);
+      color: var(--color-ink);
+      padding: 0.25rem;
+    }
+
+    select.form-select option {
+      min-block-size: 44px;
+      padding: 0.625rem 0.75rem;
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+
+    select.form-select option:hover,
+    select.form-select option:focus-visible {
+      background: var(--color-surface);
+    }
+
+    select.form-select option:checked {
+      background: var(--color-sage);
+    }
+
+    select.form-select::picker-icon {
+      color: var(--color-brand);
+    }
+  }
+
   .skeleton {
     border-radius: var(--radius-control);
     background: var(--color-border);

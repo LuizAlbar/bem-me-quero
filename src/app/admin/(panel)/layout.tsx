@@ -1,7 +1,15 @@
 import React from 'react'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
-import { ExternalLink, Layers, LayoutDashboard, LogOut, Package, Settings } from 'lucide-react'
+import {
+  ExternalLink,
+  Layers,
+  LayoutDashboard,
+  LogOut,
+  Package,
+  Settings,
+  Wallet,
+} from 'lucide-react'
 import { BrandMark } from '@/components/BrandMark'
 import { verifySession } from '@/lib/auth'
 import { logoutAction } from '@/app/admin/actions'
@@ -29,6 +37,7 @@ export default async function AdminPanelLayout({ children }: { children: React.R
             className="mt-4 flex flex-wrap gap-1 md:mt-6 md:flex-col md:gap-1.5"
           >
             <NavLink href="/admin" icon={<LayoutDashboard size={18} />} label="Visão Geral" />
+            <NavLink href="/admin/financeiro" icon={<Wallet size={18} />} label="Financeiro" />
             <NavLink href="/admin/produtos" icon={<Package size={18} />} label="Produtos" />
             <NavLink href="/admin/categorias" icon={<Layers size={18} />} label="Categorias" />
             <NavLink

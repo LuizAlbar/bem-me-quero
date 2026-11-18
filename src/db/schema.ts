@@ -1,5 +1,8 @@
 import {
   boolean,
+  check,
+  date,
+  index,
   integer,
   jsonb,
   numeric,
@@ -8,7 +11,7 @@ import {
   timestamp,
   uuid,
 } from 'drizzle-orm/pg-core'
-import { relations } from 'drizzle-orm'
+import { relations, sql } from 'drizzle-orm'
 
 export const users = pgTable('users', {
   id: uuid('id').defaultRandom().primaryKey(),
@@ -56,6 +59,34 @@ export const products = pgTable('products', {
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
 })
+
+export const financialEntries = pgTable(
+  'financial_entries',
+  {
+    id: uuid('id').defaultRandom().primaryKey(),
+    kind: text('kind').$type<'income' | 'expense'>().notNull(),
+    title: text('title').notNull(),
+    amountCents: integer('amount_cents').notNull(),
+    occurredOn: date('occurred_on', { mode: 'string' }).notNull(),
+    productId: uuid('product_id').references(() => products.id, { onDelete: 'set null' }),
+    categoryId: uuid('category_id').references(() => categories.id, { onDelete: 'set null' }),
+    createdAt: timestamp('created_at', { withTimezone: true, precision: 3 }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true, precision: 3 }).defaultNow().notNull(),
+  },
+  (table) => [
+    check('financial_entries_kind_check', sql`${table.kind} in ('income', 'expense')`),
+    check('financial_entries_amount_check', sql`${table.amountCents} between 1 and 999999999`),
+    check(
+      'financial_entries_title_check',
+      sql`char_length(trim(${table.title})) between 1 and 200`,
+    ),
+    index('financial_entries_date_idx').on(table.occurredOn, table.id),
+    index('financial_entries_category_idx').on(table.categoryId, table.occurredOn),
+    index('financial_entries_product_idx').on(table.productId, table.occurredOn),
+  ],
+).enableRLS()
+
+export type FinancialEntry = typeof financialEntries.$inferSelect
 
 export const banners = pgTable('banners', {
   id: uuid('id').defaultRandom().primaryKey(),
